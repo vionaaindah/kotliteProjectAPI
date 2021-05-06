@@ -57,8 +57,7 @@ ROOT_URLCONF = 'kotliteProjectAPI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,50 +79,53 @@ WSGI_APPLICATION = 'kotliteProjectAPI.wsgi.application'
 # Install PyMySQL as mysqlclient/MySQLdb to use Django's mysqlclient adapter
 # See https://docs.djangoproject.com/en/3.2/ref/databases/#mysql-db-api-drivers
 # for more information
-import pymysql  # noqa: 402
-pymysql.version_info = (2, 0, 3, 'final', 0)  # change mysqlclient version
-pymysql.install_as_MySQLdb()
+
+# UNCOMMENT THIS CODE FOR SETUP IN GCP
+# import pymysql  # noqa: 402
+# pymysql.version_info = (2, 0, 3, 'final', 0)  # change mysqlclient version
+# pymysql.install_as_MySQLdb()
+
 
 # [START db_setup]
-if os.getenv('GAE_APPLICATION', None):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-            'NAME': '[YOUR-DATABASE]',
-        }
-    }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': '[YOUR-DATABASE]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-        }
-    }
+# if os.getenv('GAE_APPLICATION', None):
+#     # Running on production App Engine, so connect to Google Cloud SQL using
+#     # the unix socket at /cloudsql/<your-cloudsql-connection string>
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
+#             'USER': '[YOUR-USERNAME]',
+#             'PASSWORD': '[YOUR-PASSWORD]',
+#             'NAME': '[YOUR-DATABASE]',
+#         }
+#     }
+# else:
+#     # Running locally so connect to either a local MySQL instance or connect to
+#     # Cloud SQL via the proxy. To start the proxy via command line:
+#     #
+#     #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
+#     #
+#     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'HOST': '127.0.0.1',
+#             'PORT': '3306',
+#             'NAME': '[YOUR-DATABASE]',
+#             'USER': '[YOUR-USERNAME]',
+#             'PASSWORD': '[YOUR-PASSWORD]',
+#         }
+#     }
 # [END db_setup]
 
+# UNCOMMENT THIS CODE FOR LOCAL TESTING
 # Use a in-memory sqlite3 database when testing in CI systems
-if os.getenv('TRAMPOLINE_CI', None):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation

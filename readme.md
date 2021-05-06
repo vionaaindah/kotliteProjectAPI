@@ -12,8 +12,33 @@ cd kotliteProjectAPI
 ```
 
 2. Configurasi database di kotliteProjectAPI/settings.py
+   ... Jika anda ingin menjalankan server local maka uncomment bagian ini pada file `settings.py`
 
-3. Install environment yang dibutuhkan dan  masuk kedalam virtual env (rekomendasi)
+```python
+# UNCOMMENT THIS CODE FOR LOCAL TESTING
+# Use a in-memory sqlite3 database when testing in CI systems
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+```
+
+... menjadi seperti ini
+
+```python
+# UNCOMMENT THIS CODE FOR LOCAL TESTING
+# Use a in-memory sqlite3 database when testing in CI systems
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+
+3. Install environment yang dibutuhkan dan masuk kedalam virtual env (rekomendasi)
 
 ```bash
 virtualenv env
@@ -22,6 +47,7 @@ pip install -r requirement.txt
 ```
 
 4. jalankan Django migrations untuk set up models anda
+
 ```bash
 python manage.py makemigrations
 python manage.py makemigrations api
@@ -29,20 +55,27 @@ python manage.py migrate
 ```
 
 5. Jalankan web server local
+
 ```bash
 python manage.py runserver
 ```
+
 Buka http://localhost:8000/ dibrowser anda
 
 6. Menggunakan Django admin console
+
 - Buat superuser, anda harus membuat username dan password
+
 ```bash
 python manage.py createsuperuser
 ```
+
 - Jalankan web server local
+
 ```bash
 python manage.py runserver
 ```
+
 Buka http://localhost:8000/admin dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi
 
 ## Documentation
