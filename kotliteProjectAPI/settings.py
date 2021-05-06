@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ctf(%ivp_tr&k&-%5)3r(k7@w&k86xf@v^k)q5u+wf7h4$q#^!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'kotliteProject.urls'
+ROOT_URLCONF = 'kotliteProjectAPI.urls'
 
 TEMPLATES = [
     {
@@ -121,7 +121,7 @@ if os.getenv('TRAMPOLINE_CI', None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
