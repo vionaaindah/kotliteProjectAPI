@@ -7,8 +7,8 @@ Kotlite adalah aplikasi ridesharing yang memungkinkan untuk pengemudi (driver) a
 1. clone this repository with this code :
 
 ```bash
-git clone https://github.com/SVeeIS/kotliteProject.git
-cd kotliteProject
+git clone https://github.com/SVeeIS/kotliteProjectAPI.git
+cd kotliteProjectAPI
 ```
 
 2. Install environment yang dibutuhkan (Pastikan anda telah masuk kedalam virtual env (rekomendasi))
