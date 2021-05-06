@@ -26,7 +26,7 @@ cd kotliteProjectAPI
 # }
 ```
 
-    menjadi seperti ini
+menjadi seperti ini
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
