@@ -11,11 +11,39 @@ git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 cd kotliteProjectAPI
 ```
 
-2. Install environment yang dibutuhkan (Pastikan anda telah masuk kedalam virtual env (rekomendasi))
+2. Configurasi database di kotliteProjectAPI/settings.py
+
+3. Install environment yang dibutuhkan dan  masuk kedalam virtual env (rekomendasi)
 
 ```bash
+virtualenv env
+env\scripts\activate
 pip install -r requirement.txt
 ```
+
+4. jalankan Django migrations untuk set up models anda
+```bash
+python manage.py makemigrations
+python manage.py makemigrations api
+python manage.py migrate
+```
+
+5. Jalankan web server local
+```bash
+python manage.py runserver
+```
+Buka http://localhost:8000/ dibrowser anda
+
+6. Menggunakan Django admin console
+- Buat superuser, anda harus membuat username dan password
+```bash
+python manage.py createsuperuser
+```
+- Jalankan web server local
+```bash
+python manage.py runserver
+```
+Buka http://localhost:8000/admin dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi
 
 ## Documentation
 
