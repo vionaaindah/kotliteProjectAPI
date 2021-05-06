@@ -12,7 +12,8 @@ cd kotliteProjectAPI
 ```
 
 2. Configurasi database di kotliteProjectAPI/settings.py
-   ... Jika anda ingin menjalankan server local maka uncomment bagian ini pada file `settings.py`
+
+⋅⋅⋅Jika anda ingin menjalankan server local maka uncomment bagian ini pada file `settings.py`
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
@@ -25,7 +26,7 @@ cd kotliteProjectAPI
 # }
 ```
 
-... menjadi seperti ini
+⋅⋅⋅ menjadi seperti ini
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
