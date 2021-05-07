@@ -2,9 +2,9 @@
 
 Aplikasi ini dapat anda deploy ke App Engine Google Cloud Platform. Berikut adalah langkah-langkah untuk menjalankan aplikasi ini di App Engine standard environment.
 
-## Menyiapkan Google Cloud Platform
+##  📌Menyiapkan Google Cloud Platform
 
-#### 1. Buka akun Google Cloud Platform.
+####  1. Buka akun Google Cloud Platform.
 
 Anda dapat membuat akun baru jika belum punya di <https://console.cloud.google.com/freetrial>, dan pelanggan baru akan mendapatkan $300 credit gratis.
 
@@ -21,14 +21,14 @@ Klik <https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis
 #### 5. Install dan inisialisasi Cloud SDK
 Ikuti instruksi instalasi sesuai dengan os anda di <https://cloud.google.com/sdk/docs/install>
 
-### Login ke gcloud
+### 🔗Login ke gcloud
 
 ```bash
 gcloud auth application-default login
 ```
 
 
-## Download dan jalankan aplikasi
+## 📌Download dan jalankan aplikasi
 
 #### 1. Clone repositori ke Lokal komputer
 
@@ -43,13 +43,13 @@ cd kotliteProjectAPI
 ```
 
 
-## Menyiapkan local environment
+## 📌Menyiapkan local environment
 
-### Install Cloud SQL Proxy
+### 🔗Install Cloud SQL Proxy
 
 Ikuti langkah instalasi Cload SQL Proxy sesuai dengan yang ada [di sini](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#install-proxy)
 
-### Membuat Cload SQL instance
+### 🔗Membuat Cload SQL instance
 #### 1. Buat MySQL Second Generation instance melalui Cloud SQL
 
 Buat MySQL instance di <https://cloud.google.com/sql/docs/mysql/create-instance>
@@ -64,7 +64,7 @@ gcloud sql instances describe [YOUR_INSTANCE_NAME]
 
 **[CONNECTION_NAME]** memiliki format **[PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]**
 
-### Inisiasi Cloud SQL instance
+### 🔗Inisiasi Cloud SQL instance
 #### 1. Start Cloud SQL Proxy
 
 Gunakan **[CONNECTION_NAME]**
@@ -86,7 +86,7 @@ cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat user, dan
 Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat database
 
-## Konfigurasi database settings
+## 📌Konfigurasi database settings
 
 #### Edit 'kotliteProjectAPI/settings.py'
 
@@ -178,7 +178,7 @@ Sesuaikan **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-
 
 Simpan settings.py
 
-## Jalankan aplikasi di Lokal komputer
+## 📌Jalankan aplikasi di Lokal komputer
 
 #### 1. Set Up [Python environment](https://cloud.google.com/python/docs/setup), seperti **Python**, **pip**, dan **virtualenv**
 
@@ -217,7 +217,7 @@ python manage.py runserver
 
 #### 6. Tekan **Control+C** untuk menghentikan web server local
 
-## Menggunakan Django admin console
+## 📌Menggunakan Django admin console
 
 #### 1. Buat superuser, anda harus membuat username dan password
 
@@ -234,7 +234,7 @@ python manage.py runserver
 #### 3 Buka <http://localhost:8000/admin> dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi
 
 
-## Deploy aplikasi
+## 📌Deploy aplikasi
 
 #### 1. Install gunicorn
 
@@ -254,7 +254,7 @@ python manage.py collectstatic
 gcloud app deploy
 ```
 
-### Jalankan aplikasi
+### 🔗Jalankan aplikasi
 
 - melalui Cloud SDK
 ```bash
