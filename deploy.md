@@ -30,7 +30,7 @@ gcloud auth application-default login
 
 ## Download dan jalankan aplikasi
 
-#### 1. Clone repositori ke komputer
+#### 1. Clone repositori ke Lokal komputer
 
 ```bash
 git clone https://github.com/SVeeIS/kotliteProjectAPI.git
@@ -83,7 +83,7 @@ cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 
 #### 2. Buat user dan database Cloud SQL
 
-Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat user dan Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat database
+Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat user dan Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat database
 
 ## Konfigurasi database settings
 
