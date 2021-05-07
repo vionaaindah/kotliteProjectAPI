@@ -44,14 +44,13 @@ DATABASES = {
 ```bash
 virtualenv env
 env\scripts\activate
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 4. jalankan Django migrations untuk set up models anda
 
 ```bash
 python manage.py makemigrations
-python manage.py makemigrations api
 python manage.py migrate
 ```
 
