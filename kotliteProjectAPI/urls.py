@@ -19,9 +19,9 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
+    path('admin/docs/', include_docs_urls(title='Kotlite Api')),
     path('admin/', admin.site.urls),
     path('api/', include("api.urls")),
-    path('docs/', include_docs_urls(title='Kotlite Api')),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]
 
