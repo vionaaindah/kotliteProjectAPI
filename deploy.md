@@ -83,7 +83,8 @@ cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 
 #### 2. Buat user dan database Cloud SQL
 
-Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat user dan Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat database
+Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat user, dan
+Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat database
 
 ## Konfigurasi database settings
 
@@ -177,7 +178,7 @@ Sesuaikan **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-
 
 Simpan settings.py
 
-## Jalankan aplikasi di komputer
+## Jalankan aplikasi di Lokal komputer
 
 #### 1. Set Up [Python environment](https://cloud.google.com/python/docs/setup), seperti **Python**, **pip**, dan **virtualenv**
 
