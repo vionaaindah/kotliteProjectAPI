@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.generics import *
 from rest_framework_simplejwt.tokens import *
@@ -34,8 +34,7 @@ class RegisterView(CreateAPIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    # ============================== INI BUAT APA HEI??? ==========================
-    # Masih perlu kah ini??
+    #To get all User API
     permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -43,8 +42,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(UserViewSet, self).dispatch(request, *args, **kwargs)
-    # =============================================================================
-
+    
 
 class ChangePasswordView(UpdateAPIView):
     # Function for change password
@@ -89,7 +87,7 @@ class LogoutView(APIView):
 
 class LogoutAllView(APIView):
     # Function for admin to logout all active user
-    permission_classes = (IsAuthenticated, IsAdminUser)
+    permission_classes = (IsAuthenticated,)
 
     def dispatch(self, request, *args, **kwargs):
         return super(LogoutAllView, self).dispatch(request, *args, **kwargs)
