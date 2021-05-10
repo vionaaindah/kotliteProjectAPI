@@ -2,7 +2,7 @@
 
 Aplikasi ini dapat anda deploy ke App Engine Google Cloud Platform. Berikut adalah langkah-langkah untuk menjalankan aplikasi ini di App Engine standard environment.
 
-##  📌Menyiapkan Google Cloud Platform
+## 📌Menyiapkan Google Cloud Platform
 
 **1. Buka akun Google Cloud Platform.**
 
@@ -27,7 +27,6 @@ Ikuti instruksi instalasi sesuai dengan os anda di <https://cloud.google.com/sdk
 gcloud auth application-default login
 ```
 
-
 ## 📌Download dan jalankan aplikasi
 
 **1. Clone repositori ke Lokal komputer**
@@ -42,7 +41,6 @@ git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 cd kotliteProjectAPI
 ```
 
-
 ## 📌Menyiapkan local environment
 
 ### 🔗Install Cloud SQL Proxy
@@ -50,6 +48,7 @@ cd kotliteProjectAPI
 Ikuti langkah instalasi Cload SQL Proxy sesuai dengan yang ada [di sini](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#install-proxy)
 
 ### 🔗Membuat Cload SQL instance
+
 **1. Buat MySQL Second Generation instance melalui Cloud SQL**
 
 Buat MySQL instance di <https://cloud.google.com/sql/docs/mysql/create-instance>
@@ -65,10 +64,12 @@ gcloud sql instances describe [YOUR_INSTANCE_NAME]
 **[CONNECTION_NAME]** memiliki format **[PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]**
 
 ### 🔗Inisiasi Cloud SQL instance
+
 **1. Start Cloud SQL Proxy**
 
 Gunakan **[CONNECTION_NAME]**
 Untuk windows pastikan letak file yang didowload berada di root direktori aplikasi
+
 - Linux/macOS
 
 ```bash
@@ -90,7 +91,7 @@ Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> un
 
 **Edit 'kotliteProjectAPI/settings.py'**
 
-   Uncomment bagian ini pada file `settings.py`
+Uncomment bagian ini pada file `settings.py`
 
 ```python
 # UNCOMMENT THIS CODE FOR SETUP IN GCP
@@ -183,6 +184,7 @@ Simpan `settings.py`
 **1. Set Up [Python environment](https://cloud.google.com/python/docs/setup), seperti Python, pip, dan virtualenv**
 
 **2. Install requirements**
+
 - Linux/macOS
 
 ```bash
@@ -233,7 +235,6 @@ python manage.py runserver
 
 **3 Buka <http://localhost:8000/admin> dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi**
 
-
 ## 📌Deploy aplikasi
 
 **1. Install gunicorn**
@@ -257,6 +258,7 @@ gcloud app deploy
 ### 🔗Jalankan aplikasi
 
 - melalui Cloud SDK
+
 ```bash
 gcloud app browse
 ```
