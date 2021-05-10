@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
-class orderSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = order
+        model = Order
         fields = "__all__"
 
-class finding_driverSerializer(serializers.ModelSerializer):
+class FindingDriverSerializer(serializers.ModelSerializer):
     class Meta:
-        model = finding_driver
+        model = FindingDriver
         fields = "__all__"

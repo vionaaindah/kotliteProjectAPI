@@ -53,17 +53,17 @@
 #     serializer_class = finding_driverSerializer
 
 from rest_framework import viewsets
-from drivers.serializers import orderSerializer, finding_driverSerializer
-from drivers.models import order, finding_driver
+from drivers.serializers import *
+from drivers.models import *
 from rest_framework.response import Response
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 
-class orderViewSet(viewsets.ModelViewSet):
-    # permission_classes = (IsAuthenticated,)
-    queryset =  order.objects.all()
-    serializer_class = orderSerializer
+class OrderViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset =  Order.objects.all()
+    serializer_class = OrderSerializer
 
-class finding_driverViewSet(viewsets.ModelViewSet):
+class FindingDriverViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated,)
-    queryset =  finding_driver.objects.all()
-    serializer_class = finding_driverSerializer
+    queryset =  FindingDriver.objects.all()
+    serializer_class = FindingDriverSerializer

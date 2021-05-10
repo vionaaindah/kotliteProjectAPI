@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
-class requestSerializer(serializers.ModelSerializer):
+class RequestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = request
+        model = Request
         fields = "__all__"
 
-class transactionSerializer(serializers.ModelSerializer):
+class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = transaction
+        model = Transaction
         fields = "__all__"

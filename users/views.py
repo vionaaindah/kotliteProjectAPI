@@ -1,41 +1,21 @@
-# from django.shortcuts import render
-# from rest_framework.generics import ListAPIView
-# from rest_framework.generics import CreateAPIView
-# from rest_framework.generics import DestroyAPIView
-# from rest_framework.generics import UpdateAPIView
-# from .serializers import UserSerializer
-# from django.contrib.auth.models import User
-# from rest_framework.permissions import IsAuthenticated
-
-# # Create your views here.
-# #View, Create, Update, Delete User table
-# class ListUserAPIView(ListAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class CreateUserAPIView(CreateAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class UpdateUserAPIView(UpdateAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class DeleteUserAPIView(DestroyAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
 from rest_framework import viewsets
-from users.serializers import UserSerializer
+from users.serializers import *
 from django.contrib.auth.models import User
 from rest_framework.response import Response
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.generics import CreateAPIView
+
+class MyObtainTokenPairView(TokenObtainPairView):
+    permission_classes = (AllowAny,)
+    serializer_class = MyTokenObtainPairSerializer
+
+class RegisterView(CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
-#     permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     queryset =  User.objects.all()
     serializer_class = UserSerializer
