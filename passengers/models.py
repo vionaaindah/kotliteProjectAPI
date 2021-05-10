@@ -5,12 +5,14 @@ from drivers.models import *
 class request(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.ForeignKey(order, on_delete=models.CASCADE)
-    lat_pick = models.DecimalField(max_digits=9, decimal_places=8)
-    long_pick = models.DecimalField(max_digits=9, decimal_places=8)
-    lat_drop = models.DecimalField(max_digits=9, decimal_places=8)
-    long_drop = models.DecimalField(max_digits=9, decimal_places=8)
+    lat_pick = models.DecimalField(max_digits=12, decimal_places=8)
+    long_pick = models.DecimalField(max_digits=12, decimal_places=8)
+    lat_drop = models.DecimalField(max_digits=12, decimal_places=8)
+    long_drop = models.DecimalField(max_digits=12, decimal_places=8)
     status = models.CharField(max_length=200)
-    waktu = models.DateTimeField()
+    waktu = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'request'
 
@@ -19,5 +21,7 @@ class transaction(models.Model):
     request = models.ForeignKey(request, on_delete=models.CASCADE)
     status = models.CharField(max_length=200)
     fee = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'transaction'
