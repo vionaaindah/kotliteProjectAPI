@@ -1,5 +1,5 @@
-*/settings.py
 db.sqlite3
+kotliteProjectAPI/settings.py
 */__pycache__
 */*/__pycache__
 */migrations
