@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
+    # Pairing username and password as a login function
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
@@ -22,6 +23,7 @@ class MyObtainTokenPairView(TokenObtainPairView):
 
 
 class RegisterView(CreateAPIView):
+    # Create new user for newcommers user
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
@@ -32,6 +34,8 @@ class RegisterView(CreateAPIView):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    # ============================== INI BUAT APA HEI??? ==========================
+    # Masih perlu kah ini??
     permission_classes = (IsAuthenticated,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -39,9 +43,11 @@ class UserViewSet(viewsets.ModelViewSet):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(UserViewSet, self).dispatch(request, *args, **kwargs)
+    # =============================================================================
 
 
 class ChangePasswordView(UpdateAPIView):
+    # Function for change password
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = ChangePasswordSerializer
@@ -52,6 +58,7 @@ class ChangePasswordView(UpdateAPIView):
 
 
 class UpdateProfileView(UpdateAPIView):
+    # Function for update and edit the profile
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = UpdateUserSerializer
@@ -62,6 +69,7 @@ class UpdateProfileView(UpdateAPIView):
 
 
 class LogoutView(APIView):
+    # Function for logout account and delete the session
     permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
@@ -80,6 +88,7 @@ class LogoutView(APIView):
 
 
 class LogoutAllView(APIView):
+    # Function for admin to logout all active user
     permission_classes = (IsAuthenticated, IsAdminUser)
 
     def dispatch(self, request, *args, **kwargs):
