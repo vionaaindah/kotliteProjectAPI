@@ -205,7 +205,8 @@ pip install -r requirements.txt
 
 ```bash
 python manage.py makemigrations
-python manage.py makemigrations polls
+python manage.py makemigrations drivers
+python manage.py makemigrations passengers
 python manage.py migrate
 ```
 
