@@ -16,16 +16,11 @@ passengers_router = routers.DefaultRouter()
 passengers_router.register(r'request', views.RequestViewSet)
 passengers_router.register(r'transaction', views.TransactionViewSet)
 
-#url for users app
-from users import views
-router = routers.DefaultRouter()
-router.register(r'', views.UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls), #for admin site
     path('docs/', include_docs_urls(title='Kotlite Api')), #for documentation site
-    path('users/', include(router.urls)), #for url in users app
-    path('', include("users.urls")), #for login, refresh token and register site
+    path('users/', include("users.urls")), #for login, refresh token and register site
     path('drivers/', include(drivers_router.urls)), #for url in drivers app
     path('passengers/', include(passengers_router.urls)), #for url in passengers app
 ]

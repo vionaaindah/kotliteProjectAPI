@@ -1,4 +1,3 @@
-from rest_framework import viewsets
 from users.serializers import *
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
@@ -10,7 +9,6 @@ from rest_framework.generics import *
 from rest_framework_simplejwt.tokens import *
 from rest_framework import status
 from rest_framework.views import APIView
-
 
 class MyObtainTokenPairView(TokenObtainPairView):
     # Pairing username and password as a login function
@@ -32,17 +30,19 @@ class RegisterView(CreateAPIView):
     def dispatch(self, request, *args, **kwargs):
         return super(RegisterView, self).dispatch(request, *args, **kwargs)
 
-
-class UserViewSet(viewsets.ModelViewSet):
-    #To get all User API
-    permission_classes = (IsAuthenticated,)
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class UserDetail(ListAPIView):
+    # get user detail
+    permission_classes = [IsAuthenticated]
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(UserViewSet, self).dispatch(request, *args, **kwargs)
-    
+        return super(UserDetail, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, format=None):
+        id =request.user.pk
+        queryset = User.objects.get(pk=id)
+        serializer = UserSerializer(queryset)
+        return Response(serializer.data)
 
 class ChangePasswordView(UpdateAPIView):
     # Function for change password
