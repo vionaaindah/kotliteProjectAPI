@@ -12,8 +12,10 @@ class Order(models.Model):
     time  = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return self.name
+    
+    class Meta:
+        db_table = 'drivers_order'
+        managed = True
 
 class FindingDriver(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -24,5 +26,7 @@ class FindingDriver(models.Model):
     time  = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    def __str__(self):
-        return self.name
+    
+    class Meta:
+        db_table = 'drivers_findingdriver'
+        managed = True
