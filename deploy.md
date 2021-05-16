@@ -13,7 +13,7 @@ If you're new to Google Cloud, you can open <https://console.cloud.google.com/fr
 Open <https://console.cloud.google.com/projectselector2/home/dashboard> to select a project.
 
 **3. Make sure that billing is enabled for your Cloud project**
-Open <https://cloud.google.com/billing/docs/how-to/modify-project> to learn how to confirm that billing is enabled for your project.
+Open [learn how to confirm that billing is enabled for your project](https://cloud.google.com/billing/docs/how-to/modify-project) to learn how to confirm that billing is enabled for your project.
 
 **4. Enable the Cloud SQL Admin API**
 
