@@ -8,10 +8,9 @@ You can apply this application to the Google Cloud Platform App Engine. Followin
 
 If you're new to Google Cloud, you can [create an account](https://console.cloud.google.com/freetrial) and new customers also get $300 in free credits to run, test, and deploy workloads.
 
-**2. Select Project or create Project**
+**2. In the Google Cloud Console, on the project selector page, select or create a Google Cloud projec**
 
-In the Google Cloud Console, on the project selector page, select or create a Google Cloud project.
-You can[Go to project selector](https://console.cloud.google.com/projectselector2/home/dashboard) to select a project.
+[Go to project selector](https://console.cloud.google.com/projectselector2/home/dashboard) to select a project.
 
 **3. Make sure that billing is enabled for your Cloud project**
 
@@ -21,9 +20,9 @@ You can[Go to project selector](https://console.cloud.google.com/projectselector
 
 [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com) then select the project used.
 
-**5. Install and initialize the Cloud SDK**
+**5. [Install and initialize the Cloud SDK](https://cloud.google.com/sdk/docs/install)**
 
-Click [Install and initialize the Cloud SDK](https://cloud.google.com/sdk/docs/install) and follow the installation instructions according to your operating system used.
+Follow the installation instructions according to your operating system used.
 
 ### 🔗Login ke gcloud
 
@@ -56,24 +55,24 @@ Follow the Cloud SQL Proxy installation steps according to the ones provided [he
 
 **1. [Create a Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)**
 
-[Create a Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)
 
-**2. Jalankan command ini untuk mendapatkan [CONNECTION_NAME]**
+**2. Use the Cloud SDK to run the following command where [YOUR_INSTANCE_NAME] represents the name of your Cloud SQL instance:**
 
-Ganti **[YOUR_INSTANCE_NAME]** dengan nama MySQL instance
 
 ```bash
 gcloud sql instances describe [YOUR_INSTANCE_NAME]
 ```
 
-**[CONNECTION_NAME]** memiliki format **[PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]**
+In the output, note the value shown for [CONNECTION_NAME].
+The [CONNECTION_NAME] value is in the format [PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]
 
 ### 🔗Inisiasi Cloud SQL instance
 
 **1. Start Cloud SQL Proxy**
 
-Gunakan **[CONNECTION_NAME]**
-Untuk windows pastikan letak file yang didowload berada di root direktori aplikasi
+Start the Cloud SQL Proxy by using the **[CONNECTION_NAME]** value from the previous step.
+
+Note : For Windows, make sure the location of the downloaded file is in the root of the application directory.
 
 - Linux/macOS
 
@@ -87,10 +86,11 @@ Untuk windows pastikan letak file yang didowload berada di root direktori aplika
 cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 ```
 
-**2. Buat user dan database Cloud SQL**
+**2. Create a Cloud SQL user and database**
 
-Buka <https://cloud.google.com/sql/docs/mysql/create-manage-users#creating> untuk membuat user, dan
-Buka <https://cloud.google.com/sql/docs/mysql/create-manage-databases#create> untuk membuat database
+[Create a [new user by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-users#creating) for your Cloud SQL instance
+
+[Create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
 
 ## 📌Konfigurasi database settings
 
