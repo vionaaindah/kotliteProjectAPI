@@ -94,7 +94,7 @@ Create a [new database by using the Cloud Console](https://cloud.google.com/sql/
 
 ## 📌Configuring the database settings
 
-**Open 'kotliteProjectAPI/settings.py' for editing.**
+Open **'kotliteProjectAPI/settings.py'** for editing.
 
 Uncomment bagian ini pada file `settings.py`
 
