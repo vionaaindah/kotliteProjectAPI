@@ -1,33 +1,35 @@
 # Deploy to App Engine Standard
 
-Aplikasi ini dapat anda deploy ke App Engine Google Cloud Platform. Berikut adalah langkah-langkah untuk menjalankan aplikasi ini di App Engine standard environment.
+You can apply this application to the Google Cloud Platform App Engine. Following are the steps for running this application in a standard App Engine environment.
 
-## 📌Menyiapkan Google Cloud Platform
+## 📌Setup Google Cloud Platform
 
-**1. Buka akun Google Cloud Platform.**
+**1. Open a Google Cloud Platform account.**
 
-Anda dapat membuat akun baru jika belum punya di <https://console.cloud.google.com/freetrial>, dan pelanggan baru akan mendapatkan $300 credit gratis.
+If you're new to Google Cloud, you can open <https://console.cloud.google.com/freetrial>, to create an account and new customers also get $300 in free credits to run, test, and deploy workloads.
 
-**2. Pilih Project atau buat Project**
+**2. Select Project or create Project**
 
-Buka <https://console.cloud.google.com/projectselector2/home/dashboard> untuk menentukan project
+Open <https://console.cloud.google.com/projectselector2/home/dashboard> to select a project.
 
-**3. Pastikan billing aktif untuk Project anda**
+**3. Make sure that billing is enabled for your Cloud project**
+Open <https://cloud.google.com/billing/docs/how-to/modify-project> to learn how to confirm that billing is enabled for your project.
 
-**4. Aktifkan Cloud SQL Admin API**
+**4. Enable the Cloud SQL Admin API**
 
-Klik <https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com> lalu pilih project yang dipakai
+Click <https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com> then select the project used
 
-**5. Install dan inisialisasi Cloud SDK**
-Ikuti instruksi instalasi sesuai dengan os anda di <https://cloud.google.com/sdk/docs/install>
+**5. Install and initialize the Cloud SDK**
+Follow the installation instructions according to your operating system used <https://cloud.google.com/sdk/docs/install>
 
 ### 🔗Login ke gcloud
 
+Acquire new credentials to use the Cloud SQL Admin API:
 ```bash
 gcloud auth application-default login
 ```
 
-## 📌Download dan jalankan aplikasi
+## 📌Downloading and running the app
 
 **1. Clone repositori ke Lokal komputer**
 
