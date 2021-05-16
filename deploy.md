@@ -6,22 +6,24 @@ You can apply this application to the Google Cloud Platform App Engine. Followin
 
 **1. Open a Google Cloud Platform account.**
 
-If you're new to Google Cloud, you can open <https://console.cloud.google.com/freetrial>, to create an account and new customers also get $300 in free credits to run, test, and deploy workloads.
+If you're new to Google Cloud, you can [create an account](https://console.cloud.google.com/freetrial) and new customers also get $300 in free credits to run, test, and deploy workloads.
 
 **2. Select Project or create Project**
 
-Open <https://console.cloud.google.com/projectselector2/home/dashboard> to select a project.
+In the Google Cloud Console, on the project selector page, select or create a Google Cloud project.
+You can[Go to project selector](https://console.cloud.google.com/projectselector2/home/dashboard) to select a project.
 
 **3. Make sure that billing is enabled for your Cloud project**
-Open [learn how to confirm that billing is enabled for your project](https://cloud.google.com/billing/docs/how-to/modify-project) to learn how to confirm that billing is enabled for your project.
+
+[learn how to confirm that billing is enabled for your project](https://cloud.google.com/billing/docs/how-to/modify-project)
 
 **4. Enable the Cloud SQL Admin API**
 
-Click <https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com> then select the project used
+[Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com) then select the project used.
 
 **5. Install and initialize the Cloud SDK**
 
-Follow the installation instructions according to your operating system used <https://cloud.google.com/sdk/docs/install>
+Click [Install and initialize the Cloud SDK](https://cloud.google.com/sdk/docs/install) and follow the installation instructions according to your operating system used.
 
 ### 🔗Login ke gcloud
 
@@ -52,9 +54,9 @@ Follow the Cloud SQL Proxy installation steps according to the ones provided [he
 
 ### 🔗Creating a Cloud SQL instance
 
-**1. Buat MySQL Second Generation instance melalui Cloud SQL**
+**1. [Create a Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)**
 
-Buat MySQL instance di <https://cloud.google.com/sql/docs/mysql/create-instance>
+[Create a Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)
 
 **2. Jalankan command ini untuk mendapatkan [CONNECTION_NAME]**
 
