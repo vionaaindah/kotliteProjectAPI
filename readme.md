@@ -84,3 +84,4 @@ In your browser, go to  `http://localhost:8000/admin` Log in to the admin site u
 **📌Documentation**
 
 API documentation can be seen here (Coming Soon)
+stay tuned (・ｗ・）
