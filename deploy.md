@@ -20,6 +20,7 @@ Open <https://cloud.google.com/billing/docs/how-to/modify-project> to learn how 
 Click <https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com> then select the project used
 
 **5. Install and initialize the Cloud SDK**
+
 Follow the installation instructions according to your operating system used <https://cloud.google.com/sdk/docs/install>
 
 ### 🔗Login ke gcloud
@@ -31,25 +32,25 @@ gcloud auth application-default login
 
 ## 📌Downloading and running the app
 
-**1. Clone repositori ke Lokal komputer**
+**1. Cloning the repository to local computer**
 
 ```bash
 git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 ```
 
-**2. Buka direktori**
+**2. Open directory**
 
 ```bash
 cd kotliteProjectAPI
 ```
 
-## 📌Menyiapkan local environment
+## 📌Setup the local environment
 
-### 🔗Install Cloud SQL Proxy
+### 🔗Installing the Cloud SQL Proxy
 
-Ikuti langkah instalasi Cload SQL Proxy sesuai dengan yang ada [di sini](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#install-proxy)
+Follow the Cloud SQL Proxy installation steps according to the ones provided [here](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#install-proxy)
 
-### 🔗Membuat Cload SQL instance
+### 🔗Creating a Cloud SQL instance
 
 **1. Buat MySQL Second Generation instance melalui Cloud SQL**
 
