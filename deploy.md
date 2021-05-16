@@ -88,13 +88,13 @@ cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
 
 **2. Create a Cloud SQL user and database**
 
-[Create a [new user by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-users#creating) for your Cloud SQL instance
+Create a [new user by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-users#creating) for your Cloud SQL instance
 
-[Create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
+Create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
 
-## 📌Konfigurasi database settings
+## 📌Configuring the database settings
 
-**Edit 'kotliteProjectAPI/settings.py'**
+**Open 'kotliteProjectAPI/settings.py' for editing.**
 
 Uncomment bagian ini pada file `settings.py`
 
