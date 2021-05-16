@@ -186,7 +186,7 @@ Save **`settings.py`**
 
 ## 📌Run the application on the Local computer
 
-**1. Set Up [Python environment](https://cloud.google.com/python/docs/setup),  including Python, pip, dan virtualenv**
+**1. Set Up [Python environment](https://cloud.google.com/python/docs/setup),  including Python, `pip`, and `virtualenv`**
 
 **2. Create an isolated Python environment, and install dependencies**
 
