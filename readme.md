@@ -1,19 +1,19 @@
-# Kotlite API
+# 📱 Kotlite API 📱
 
-Kotlite adalah aplikasi ridesharing yang memungkinkan untuk pengemudi (driver) akan mendapatkan penumpang (rider) yang memiliki route atau jalur yang sama. Aplikasi ini merupakan produk dari Brillante Team (BA21-CAP0176) untuk memenuhi Bangkit Academy 2021 led by Google, Gojek, Tokopedia, and Traveloka Capstone Project.
+Kotlite is a ridesharing application that allows drivers to get riders who have the same route. This application is a product of the Brillante Team (BA21-CAP0176) to fulfill the Bangkit Academy 2021 led by Google, Gojek, Tokopedia, and Traveloka Capstone Project.
 
-## How to use
+## 📌How to use
 
-1. clone this repository with this code :
+**1. clone this repository by running the following command:**
 
 ```bash
 git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 cd kotliteProjectAPI
 ```
 
-2. Configurasi database di kotliteProjectAPI/settings.py
+**2. Configurasi database di kotliteProjectAPI/settings.py**
 
-   Jika anda ingin menjalankan server local maka uncomment bagian ini pada file `settings.py`
+   If you want to run a local server then uncomment this part of the `settings.py`
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
@@ -26,7 +26,7 @@ cd kotliteProjectAPI
 # }
 ```
 
-menjadi seperti ini
+to be like this
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
@@ -39,7 +39,7 @@ DATABASES = {
 }
 ```
 
-3. Install environment yang dibutuhkan dan masuk kedalam virtual env (rekomendasi)
+**3. Install the required environment and enter virtualenv (recommendation)**
 
 ```bash
 virtualenv env
@@ -47,7 +47,7 @@ env\scripts\activate
 pip install -r requirements.txt
 ```
 
-4. jalankan Django migrations untuk set up models anda
+**4. Run Django migrations to set up your models**
 
 ```bash
 python manage.py makemigrations
@@ -56,7 +56,7 @@ python manage.py makemigrations passengers
 python manage.py migrate
 ```
 
-5. Jalankan web server local
+**5. Start a local web server:**
 
 ```bash
 python manage.py runserver
@@ -64,22 +64,22 @@ python manage.py runserver
 
 Buka http://localhost:8000/ dibrowser anda
 
-6. Menggunakan Django admin console
+**6. Using the Django admin console**
 
-- Buat superuser, anda harus membuat username dan password
+- Create a superuser. You need to define a username and password:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-- Jalankan web server local
+- Start a local web server:
 
 ```bash
 python manage.py runserver
 ```
 
-Buka http://localhost:8000/admin dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi
+In your browser, go to  `http://localhost:8000/admin` Log in to the admin site using the username and password you used when you ran createsuperuser.
 
-## Documentation
+**📌Documentation**
 
-Dokumentasi API dapat dilihat disini (Coming Soon)
+API documentation can be seen here (Coming Soon)
