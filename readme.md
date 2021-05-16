@@ -62,7 +62,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Buka http://localhost:8000/ dibrowser anda
+In your browser, go to `http://localhost:8000/`
 
 **6. Using the Django admin console**
 
