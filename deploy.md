@@ -2,7 +2,7 @@
 
 You can apply this application to the Google Cloud Platform App Engine. Following are the steps for running this application in a standard App Engine environment.
 
-## 📌Setup Google Cloud Platform
+## 📌Set up Google Cloud Platform
 
 **1. Open a Google Cloud Platform account.**
 
@@ -45,7 +45,7 @@ git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 cd kotliteProjectAPI
 ```
 
-## 📌Setup the local environment
+## 📌Set up the local environment
 
 ### 🔗Installing the Cloud SQL Proxy
 
@@ -94,9 +94,9 @@ Create a [new database by using the Cloud Console](https://cloud.google.com/sql/
 
 ## 📌Configuring the database settings
 
-Open **'kotliteProjectAPI/settings.py'** for editing.
+Open **`kotliteProjectAPI/settings.py`** for editing.
 
-Uncomment bagian ini pada file `settings.py`
+Uncomment this section of the file **`settings.py`**
 
 ```python
 # UNCOMMENT THIS CODE FOR SETUP IN GCP
@@ -138,7 +138,7 @@ Uncomment bagian ini pada file `settings.py`
 # [END db_setup]
 ```
 
-menjadi seperti ini
+**to be like this**
 
 ```python
 # UNCOMMENT THIS CODE FOR SETUP IN GCP
@@ -180,15 +180,15 @@ else:
 # [END db_setup]
 ```
 
-Sesuaikan **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-PASSWORD]** dengan yang telah dibuat.
+Set up **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-PASSWORD]** with the value that you set up in the previous step.
 
-Simpan `settings.py`
+Save **`settings.py`**
 
-## 📌Jalankan aplikasi di Lokal komputer
+## 📌Run the application on the Local computer
 
-**1. Set Up [Python environment](https://cloud.google.com/python/docs/setup), seperti Python, pip, dan virtualenv**
+**1. Set Up [Python environment](https://cloud.google.com/python/docs/setup),  including Python, pip, dan virtualenv**
 
-**2. Install requirements**
+**2. Create an isolated Python environment, and install dependencies**
 
 - Linux/macOS
 
@@ -206,7 +206,7 @@ env\scripts\activate
 pip install -r requirements.txt
 ```
 
-**3. Run Django migrations untuk set up models**
+**3. Run the Django migrations to set up your models**
 
 ```bash
 python manage.py makemigrations
@@ -215,33 +215,33 @@ python manage.py makemigrations passengers
 python manage.py migrate
 ```
 
-**4. Jalankan web server local**
+**4. Start a local web server**
 
 ```bash
 python manage.py runserver
 ```
 
-**5. Buka browser, jalankan <http://localhost:8000/>**
+**5. In your browser, go to <http://localhost:8000/>**
 
-**6. Tekan `Control+C` untuk menghentikan web server local**
+**6. Press `Control+C` to stop the local web server**
 
-## 📌Menggunakan Django admin console
+## 📌Using the Django admin console
 
-**1. Buat superuser, anda harus membuat username dan password**
+**1. Create a superuser. You need to define a username and password**
 
 ```bash
 python manage.py createsuperuser
 ```
 
-**2. Jalankan web server local**
+**2. Start a local web server**
 
 ```bash
 python manage.py runserver
 ```
 
-**3 Buka <http://localhost:8000/admin> dibrowser anda dan login menggunakan username dan password yang telah anda buat tadi**
+**3 In your browser, go to <http://localhost:8000/admin> and log in to the admin site using the username and password you used when you ran createsuperuser**
 
-## 📌Deploy aplikasi
+## 📌Deploying the app to the App Engine standard environment
 
 **1. Install gunicorn**
 
@@ -249,28 +249,28 @@ python manage.py runserver
 pip install gunicorn
 ```
 
-**2. Kumpulkan semua konten static ke dalam satu folder**
+**2. Gather all the static content into one folder by moving all of the app's static files into the folder specified by `STATIC_ROOT` in `settings.py`**
 
 ```bash
 python manage.py collectstatic
 ```
 
-**3. Upload aplikasi**
+**3. Upload the app by running the following command**
 
 ```bash
 gcloud app deploy
 ```
 
-### 🔗Jalankan aplikasi
+### 🔗Run the application
 
-- melalui Cloud SDK
+- Run the application by running the following command
 
 ```bash
 gcloud app browse
 ```
 
-Jika browser tidak terbuka, klik link yang keluar di CLoud SDK.
+Run : If the browser doesn't open, click the link that comes out of the Cloud SDK
 
-- melalui Cloud Console
+- via the Cloud Console
 
-Klik link aplikasi yang tertera pada <https://console.cloud.google.com/appengine>
+Click the application link in [AppEngine](https://console.cloud.google.com/appengine)
