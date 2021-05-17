@@ -38,3 +38,10 @@ class ListFindingDriverAPIView(ListAPIView):
     # permission_classes = (IsAuthenticated,)
     queryset = FindingDriver.objects.all()
     serializer_class = FindingDriverSerializer
+
+class FindingDriverAPIView(ListAPIView):
+    serializer_class = FindingDriverSerializer
+
+    def get_queryset(self):
+        orders = self.kwargs['order']
+        return FindingDriver.objects.filter(order=orders)

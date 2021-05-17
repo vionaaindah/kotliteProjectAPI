@@ -6,4 +6,5 @@ urlpatterns = [
     path('order/', ListOrderAPIView.as_view(), name='drivers_createorder'),
     path('order/<int:pk>/', OrderAPIView.as_view(), name='drivers_createorder'),
     path('findingdriver/', ListFindingDriverAPIView.as_view(), name='drivers_createorder'),
+    path('findingdriver/<int:order>/', FindingDriverAPIView.as_view(), name='drivers_createorder'),
 ]
