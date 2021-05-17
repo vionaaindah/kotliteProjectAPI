@@ -19,7 +19,8 @@ class Order(models.Model):
         managed = True
 
 class FindingDriver(models.Model):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='findingdriver', on_delete=models.CASCADE)
+    list = models.IntegerField(default='1')
     lat_start_point = models.DecimalField(max_digits=12, decimal_places=8)
     long_start_point = models.DecimalField(max_digits=12, decimal_places=8)
     lat_end_point = models.DecimalField(max_digits=12, decimal_places=8)
@@ -31,3 +32,5 @@ class FindingDriver(models.Model):
     class Meta:
         db_table = 'drivers_findingdriver'
         managed = True
+        unique_together = ['order', 'list']
+        ordering = ['list']
