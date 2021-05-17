@@ -1,19 +1,10 @@
-from rest_framework import viewsets
 from drivers.serializers import *
 from drivers.models import *
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import *
-
-# class OrderViewSet(viewsets.ModelViewSet):
-#     # permission_classes = (IsAuthenticated,)
-#     queryset =  Order.objects.all()
-#     serializer_class = OrderSerializer
-
-# class FindingDriverViewSet(viewsets.ModelViewSet):
-#     # permission_classes = (IsAuthenticated,)
-#     queryset =  FindingDriver.objects.all()
-#     serializer_class = FindingDriverSerializer
 
 class OrderCreateAPIView(CreateAPIView):
     """

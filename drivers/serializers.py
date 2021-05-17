@@ -1,29 +1,21 @@
-from rest_framework import serializers
+from rest_framework import fields, serializers
 from .models import *
 
+class FindingDriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FindingDriver
+        exclude = ['order', 'time']
+
 class OrderCreateSerializer(serializers.ModelSerializer):
-    """
-    Serializer to Add Order together with FindingDriver
-    """
-
-    class FindingDriverTempSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = FindingDriver
-            # 'order' is a FK which will be assigned after creation of 'Order' model entry
-            exclude = ['order', 'time']
-
-    finding_driver = FindingDriverTempSerializer()  
+    findingdriver = FindingDriverSerializer(many=True)
 
     class Meta:
         model = Order
-        exclude = ['status', 'total_psg', 'user']
+        fields = ['user', 'lat_start', 'long_start', 'lat_end', 'long_end', 'time', 'capacity', 'findingdriver']
 
-    def create(self, request, validated_data):
-        finding_driver_data = validated_data.pop('finding_driver')
-        order_instance = Order.objects.create(**validated_data)
-        for finding_data in finding_driver_data:
-            FindingDriver.objects.create(order=order_instance,
-                                  user=request.user,
-                                  time=order_instance.time,
-                                  **finding_data)
-        return order_instance
+    def create(self, validated_data):
+        fds_data = validated_data.pop('findingdriver')
+        order = Order.objects.create(status ='Finding', total_psg=0, **validated_data)
+        for fd_data in fds_data:
+            FindingDriver.objects.create(order=order, time=order.time, **fd_data)
+        return order
