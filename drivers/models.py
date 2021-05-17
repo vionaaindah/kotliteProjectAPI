@@ -7,11 +7,12 @@ class Order(models.Model):
     long_start = models.DecimalField(max_digits=12, decimal_places=8)
     lat_end = models.DecimalField(max_digits=12, decimal_places=8)
     long_end = models.DecimalField(max_digits=12, decimal_places=8)
-    total_psg = models.IntegerField()
-    status = models.CharField(max_length=200)
+    total_psg = models.IntegerField(default='0')
+    status = models.CharField(max_length=200, default='Finding')
     time  = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    capacity = models.IntegerField(default='1')
     
     class Meta:
         db_table = 'drivers_order'
