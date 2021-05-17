@@ -19,7 +19,7 @@ class Order(models.Model):
         managed = True
 
 class FindingDriver(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.OneToOneField(Order, on_delete=models.CASCADE)
     lat_start_point = models.DecimalField(max_digits=12, decimal_places=8)
     long_start_point = models.DecimalField(max_digits=12, decimal_places=8)
     lat_end_point = models.DecimalField(max_digits=12, decimal_places=8)
