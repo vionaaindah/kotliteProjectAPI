@@ -42,8 +42,18 @@ DATABASES = {
 
 **3. Install the required environment and enter virtualenv (recommendation)**
 
+- Linux/macOS
+
 ```bash
 virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+
+- Windows
+
+```bash
+python -m venv env
 env\scripts\activate
 pip install -r requirements.txt
 ```
