@@ -12,9 +12,29 @@ class OrderCreateAPIView(CreateAPIView):
     """
     queryset = Order.objects.all()
     serializer_class = OrderCreateSerializer
+    # permission_classes = (IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
         serializer = OrderCreateSerializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+class ListOrderAPIView(ListAPIView):
+    # permission_classes = (IsAuthenticated,)
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class OrderAPIView(ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def get(self, request, pk, *args, **kwargs):
+        order = Order.objects.get(pk=pk)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
+class ListFindingDriverAPIView(ListAPIView):
+    # permission_classes = (IsAuthenticated,)
+    queryset = FindingDriver.objects.all()
+    serializer_class = FindingDriverSerializer

@@ -1,13 +1,13 @@
 from rest_framework import fields, serializers
 from .models import *
 
-class FindingDriverSerializer(serializers.ModelSerializer):
+class FDSerializer(serializers.ModelSerializer):
     class Meta:
         model = FindingDriver
         exclude = ['order', 'time']
 
 class OrderCreateSerializer(serializers.ModelSerializer):
-    findingdriver = FindingDriverSerializer(many=True)
+    findingdriver = FDSerializer(many=True)
 
     class Meta:
         model = Order
@@ -19,3 +19,13 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         for fd_data in fds_data:
             FindingDriver.objects.create(order=order, time=order.time, **fd_data)
         return order
+
+class FindingDriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FindingDriver
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
