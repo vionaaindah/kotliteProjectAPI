@@ -13,8 +13,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 #url for passengers app
 from passengers import views
 passengers_router = routers.DefaultRouter()
-passengers_router.register(r'request', views.RequestViewSet)
-passengers_router.register(r'transaction', views.TransactionViewSet)
+passengers_router.register(r'', views.PassengersViewSet)
 
 
 urlpatterns = [

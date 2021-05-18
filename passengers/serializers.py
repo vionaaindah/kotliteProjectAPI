@@ -1,12 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class RequestSerializer(serializers.ModelSerializer):
+class PassengersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Request
-        fields = "__all__"
-
-class TransactionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Transaction
+        model = Passengers
         fields = "__all__"

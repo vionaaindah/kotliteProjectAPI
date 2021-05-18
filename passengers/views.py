@@ -4,12 +4,7 @@ from passengers.models import *
 from rest_framework.response import Response
 # from rest_framework.permissions import IsAuthenticated
 
-class RequestViewSet(viewsets.ModelViewSet):
+class PassengersViewSet(viewsets.ModelViewSet):
 #     permission_classes = (IsAuthenticated,)
-    queryset =  Request.objects.all()
-    serializer_class = RequestSerializer
-
-class TransactionViewSet(viewsets.ModelViewSet):
-#     permission_classes = (IsAuthenticated,)
-    queryset =  Transaction.objects.all()
-    serializer_class = TransactionSerializer
+    queryset =  Passengers.objects.all()
+    serializer_class = PassengersSerializer
