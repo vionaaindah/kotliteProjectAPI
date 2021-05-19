@@ -32,7 +32,7 @@ class RegisterView(CreateAPIView):
 
 class UserDetail(ListAPIView):
     # get user detail
-    permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

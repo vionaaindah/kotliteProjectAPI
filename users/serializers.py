@@ -6,9 +6,11 @@ from django.contrib.auth.password_validation import validate_password
 from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
+    phone = serializers.CharField(source='additionals.phone', read_only=True)
+    
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'phone')
 
 #class for register user
 class PhoneSerializer(serializers.ModelSerializer):
@@ -25,7 +27,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-
+    
     class Meta:
         model = User
         fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name', 'additionals')
