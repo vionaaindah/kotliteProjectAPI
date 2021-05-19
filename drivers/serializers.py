@@ -21,3 +21,19 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+class DriversListSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name', read_only=True)
+    last_name = serializers.CharField(source='user.last_name', read_only=True)
+    class Meta:
+        model = Order
+        fields = ('id', 'first_name', 'last_name', 'lat_start', 
+                'long_start', 'lat_end', 'long_end', 'status',
+                'time', 'total_psg', 'capacity', 'car_type', 
+            )
+
+class StatusUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['status']
+    

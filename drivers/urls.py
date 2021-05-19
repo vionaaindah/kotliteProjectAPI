@@ -3,8 +3,6 @@ from drivers.views import *
 
 urlpatterns = [
     path('createorder/', OrderCreateAPIView.as_view(), name='drivers_createorder'),
-    path('order/', ListOrderAPIView.as_view(), name='drivers_createorder'),
-    path('order/<int:pk>/', OrderAPIView.as_view(), name='drivers_createorder'),
-    path('findingdriver/', ListFindingDriverAPIView.as_view(), name='drivers_createorder'),
-    path('findingdriver/<int:order>/', FindingDriverAPIView.as_view(), name='drivers_createorder'),
+    path('detail/<int:pk>/', DriverDetailAPIView.as_view(), name='drivers_createorder'),
+    path('ridding/<int:id>/', RiddingView.as_view(), name='auth_update_profile'),
 ]
