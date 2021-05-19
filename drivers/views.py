@@ -1,3 +1,4 @@
+from rest_framework import serializers, status
 from drivers.serializers import *
 from drivers.models import *
 from django.utils.decorators import method_decorator
@@ -8,18 +9,32 @@ from rest_framework.generics import *
 from rest_framework.views import APIView
 
 class OrderCreateAPIView(CreateAPIView):
-    """
-    Create a new Order entry with Finding_Driver entry
-    """
-    queryset = Order.objects.all()
-    serializer_class = OrderCreateSerializer
+    serializer_class = OrderSerializer
     # permission_classes = (IsAuthenticated,)
 
-    def create(self, request, *args, **kwargs):
-        serializer = OrderCreateSerializer(data=self.request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(OrderCreateAPIView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, format=None):
+        content = {
+            'user': request.user.id,
+            'lat_start': request.data['lat_start'],
+            'long_start': request.data['long_start'],
+            'lat_end': request.data['lat_end'],
+            'long_end': request.data['long_end'],
+            'total_psg': 0,
+            'status': 'Waiting',
+            'time': request.data['time'],
+            'capacity': request.data['capacity'],
+            'car_type': request.data['car_type'],
+        }
+        serializer = OrderSerializer(data=content)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DriverDetailAPIView(ListAPIView):
     # class for get Detail Driver
