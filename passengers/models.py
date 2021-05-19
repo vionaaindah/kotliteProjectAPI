@@ -11,9 +11,9 @@ class Passengers(models.Model):
     long_drop = models.DecimalField(max_digits=12, decimal_places=8)
     status = models.CharField(max_length=200)
     time = models.CharField(max_length=200)
-    fee = models.IntegerField()
-    distance = models.CharField(max_length=200)
-    time_taken = models.CharField(max_length=200)
+    fee = models.IntegerField(blank=True, null=True)
+    distance = models.CharField(blank=True, null=True, max_length=200)
+    time_taken = models.CharField(blank=True, null=True, max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
