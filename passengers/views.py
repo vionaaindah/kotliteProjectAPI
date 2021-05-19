@@ -1,4 +1,4 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, status
 from rest_framework.generics import *
 from passengers.serializers import *
 from passengers.models import *
@@ -38,6 +38,10 @@ class PassengersListAPIView(ListAPIView):
     def get_queryset(self):
         orders = self.kwargs['order']
         return Passengers.objects.filter(order=orders).exclude(status="Denied").exclude(status="Pending")
+
+'''
+    class for change passengers status
+'''
 
 class AcceptedView(APIView):
     #class for change status passenger to Accepted
@@ -180,3 +184,44 @@ class DoneView(APIView):
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+'''
+    end class for change passengers status
+'''
+
+class PassengerCreateAPIView(ListCreateAPIView):
+    # class for create passenger
+    serializer_class = PassengersSerializer
+    # permission_classes = (IsAuthenticated,)
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, format=None):
+        queryset = Passengers.objects.all()
+
+        psg = {
+            'lat_pick': request.data['lat_pick'],
+            'long_pick': request.data['long_pick'],
+            'lat_drop': request.data['lat_drop'],
+            'long_drop': request.data['long_drop'],
+            'time': request.data['time'],
+        }
+        return Response(psg)
+    
+    def post(self, request, format=None):
+        passenger = {
+            'user': request.user.id,
+            'order': request.data['order'],
+            'lat_pick': request.data['lat_pick'],
+            'long_pick': request.data['long_pick'],
+            'lat_drop': request.data['lat_drop'],
+            'long_drop': request.data['long_drop'],
+            'time': request.data['time'],
+            'status': 'Pending',
+        }
+        serializer = PassengersSerializer(data=passenger)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

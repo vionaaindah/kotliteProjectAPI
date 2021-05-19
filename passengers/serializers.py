@@ -4,7 +4,8 @@ from .models import *
 class PassengersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Passengers
-        fields = "__all__"
+        fields = ['order', 'user', 'status', 'lat_pick', 
+                    'long_pick', 'lat_drop', 'long_drop', 'time',]
 
 class PassengersListSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name', read_only=True)
@@ -15,7 +16,6 @@ class PassengersListSerializer(serializers.ModelSerializer):
                 'long_pick', 'lat_drop', 'long_drop', 'status',
                 'time', 'fee', 'distance', 'time_taken', 'order',
             )
-
 
 class StatusUpdateSerializer(serializers.ModelSerializer):
     class Meta:
