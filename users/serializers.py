@@ -19,7 +19,7 @@ class PhoneSerializer(serializers.ModelSerializer):
         fields = ['phone']
 
 class RegisterSerializer(serializers.ModelSerializer):
-    additionals = PhoneSerializer()
+    # additionals = PhoneSerializer()
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=User.objects.all())]
@@ -27,10 +27,11 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
-    
+    phone = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name', 'additionals')
+        fields = ('username', 'password', 'password2', 'email', 'first_name', 'last_name', 'phone')
         extra_kwargs = {
             'first_name': {'required': True},
             'last_name': {'required': True}
@@ -43,17 +44,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        phone_number = validated_data['additionals']
+        # phone_number = validated_data.['phone']
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
         )
-        Profile.objects.create(user=user, **phone_number)
+        phone = Profile.objects.create(user=user, phone=validated_data['phone'])
         
         user.set_password(validated_data['password'])
         user.save()
+        phone.save()
 
         return user
 
