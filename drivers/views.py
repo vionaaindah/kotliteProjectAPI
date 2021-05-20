@@ -1,6 +1,7 @@
 from rest_framework import serializers, status
 from drivers.serializers import *
 from drivers.models import *
+from passengers.models import *
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
@@ -67,6 +68,10 @@ class RiddingView(APIView):
         serializer = StatusUpdateSerializer(order, data=data, partial=True)
         if serializer.is_valid():
             order = serializer.save()
+            list = Passengers.objects.filter(order=order.pk, status='Accepted')
+            for item in list:
+                item.status = 'Arriving'
+                item.save()
             return Response(StatusUpdateSerializer(order).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

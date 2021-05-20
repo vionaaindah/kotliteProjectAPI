@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
+from drivers.models import *
 # from rest_framework.permissions import IsAuthenticated
 
 class PassengersViewSet(viewsets.ModelViewSet):
@@ -60,6 +61,12 @@ class AcceptedView(APIView):
         serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
+            order = get_object_or_404(Order,pk=passengers.order.pk)
+            order.total_psg += 1
+            order.save()
+            if order.total_psg == order.capacity:
+                order.status = 'Full'
+                order.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -76,26 +83,6 @@ class DeniedView(APIView):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Denied'
-        }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
-        if serializer.is_valid():
-            passengers = serializer.save()
-            return Response(StatusUpdateSerializer(passengers).data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ArrivingView(APIView):
-    #class for change status passenger to Arriving
-    # permission_classes = (IsAuthenticated,)
-    serializer_class = StatusUpdateSerializer
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ArrivingView, self).dispatch(request, *args, **kwargs)
-    
-    def patch(self, request, *args, **kwargs):
-        passengers = get_object_or_404(Passengers, pk=kwargs['id'])
-        data = {
-            'status': 'Arriving'
         }
         serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
         if serializer.is_valid():
@@ -181,6 +168,11 @@ class DoneView(APIView):
         serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
+            order = get_object_or_404(Order,pk=passengers.order.pk)
+            total_done = Passengers.objects.filter(order=passengers.order.pk, status='Done').count()
+            if order.total_psg == total_done:
+                order.status = 'Done'
+                order.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -195,28 +187,22 @@ class PassengerCreateAPIView(ListCreateAPIView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
-
     def get(self, request, format=None):
-        queryset = Passengers.objects.all()
 
-        psg = {
-            'lat_pick': request.data['lat_pick'],
-            'long_pick': request.data['long_pick'],
-            'lat_drop': request.data['lat_drop'],
-            'long_drop': request.data['long_drop'],
-            'time': request.data['time'],
-        }
+        global psg
+
+        psg = request.data
         return Response(psg)
     
     def post(self, request, format=None):
         passenger = {
             'user': request.user.id,
             'order': request.data['order'],
-            'lat_pick': request.data['lat_pick'],
-            'long_pick': request.data['long_pick'],
-            'lat_drop': request.data['lat_drop'],
-            'long_drop': request.data['long_drop'],
-            'time': request.data['time'],
+            'lat_pick': psg['lat_pick'],
+            'long_pick': psg['long_pick'],
+            'lat_drop': psg['lat_drop'],
+            'long_drop': psg['long_drop'],
+            'time': psg['time'],
             'status': 'Pending',
         }
         serializer = PassengersSerializer(data=passenger)
