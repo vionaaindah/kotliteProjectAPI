@@ -188,7 +188,6 @@ class PassengerCreateAPIView(ListCreateAPIView):
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
     def get(self, request, format=None):
-
         global psg
 
         psg = request.data
