@@ -51,19 +51,19 @@ class DriverDetailAPIView(ListAPIView):
         serializer = DriversListSerializer(queryset)
         return Response(serializer.data)
 
-class RiddingView(APIView):
-    #class for change status passenger to Ridding
+class RidingView(APIView):
+    #class for change status passenger to Riding
     # permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(RiddingView, self).dispatch(request, *args, **kwargs)
+        return super(RidingView, self).dispatch(request, *args, **kwargs)
     
     def patch(self, request, *args, **kwargs):
         order = get_object_or_404(Order, pk=kwargs['id'])
         data = {
-            'status': 'Ridding'
+            'status': 'Riding'
         }
         serializer = StatusUpdateSerializer(order, data=data, partial=True)
         if serializer.is_valid():
