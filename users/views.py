@@ -45,25 +45,43 @@ class UserDetail(ListAPIView):
         return Response(serializer.data)
 
 class ChangePasswordView(UpdateAPIView):
-    # Function for change password
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    # class for change user password
     serializer_class = ChangePasswordSerializer
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(ChangePasswordView, self).dispatch(request, *args, **kwargs)
-
+    
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            response = {
+                    'message': 'Password updated successfully',
+                }
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+        
 
 class UpdateProfileView(UpdateAPIView):
-    # Function for update and edit the profile
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    # class for update and edit the profile
     serializer_class = UpdateUserSerializer
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(UpdateProfileView, self).dispatch(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            user = serializer.save()
+            response = {
+                    'message': 'Profile updated successfully',
+                }
+            return Response(response, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(APIView):

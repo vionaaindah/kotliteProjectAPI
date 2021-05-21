@@ -70,7 +70,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         return token
         
-#class for change password ssserializer
+#class for change password serializer
 class ChangePasswordSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
@@ -92,16 +92,12 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"old_password": "Old password is not correct"})
         return value
 
-    def update(self, instance, validated_data):
+    def save(self, **kwargs):
+        password = self.validated_data['password']
         user = self.context['request'].user
-
-        if user.pk != instance.pk:
-            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
-
-        instance.set_password(validated_data['password'])
-        instance.save()
-
-        return instance
+        user.set_password(password)
+        user.save()
+        return user
 
 #class for update user profile
 class UpdateUserSerializer(serializers.ModelSerializer):
@@ -126,18 +122,12 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         if User.objects.exclude(pk=user.pk).filter(username=value).exists():
             raise serializers.ValidationError({"username": "This username is already in use."})
         return value
-
-    def update(self, instance, validated_data):
+        
+    def save(self, **kwargs):
         user = self.context['request'].user
-
-        if user.pk != instance.pk:
-            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
-
-        instance.first_name = validated_data['first_name']
-        instance.last_name = validated_data['last_name']
-        instance.email = validated_data['email']
-        instance.username = validated_data['username']
-
-        instance.save()
-
-        return instance
+        user.first_name = self.validated_data['first_name']
+        user.last_name = self.validated_data['last_name']
+        user.email = self.validated_data['email']
+        user.username = self.validated_data['username']
+        user.save()
+        return user
