@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    lat_start = models.DecimalField(max_digits=12, decimal_places=8)
-    long_start = models.DecimalField(max_digits=12, decimal_places=8)
-    lat_end = models.DecimalField(max_digits=12, decimal_places=8)
-    long_end = models.DecimalField(max_digits=12, decimal_places=8)
+    lat_start = models.DecimalField(max_digits=22, decimal_places=16)
+    long_start = models.DecimalField(max_digits=22, decimal_places=16)
+    lat_end = models.DecimalField(max_digits=22, decimal_places=16)
+    long_end = models.DecimalField(max_digits=22, decimal_places=16)
     total_psg = models.IntegerField()
     status = models.CharField(max_length=200)
     time  = models.CharField(max_length=200)
@@ -20,8 +20,8 @@ class Order(models.Model):
 
 class FindingDriver(models.Model):
     order = models.ForeignKey(Order, related_name='findingdriver', on_delete=models.CASCADE)
-    latitude = models.DecimalField(max_digits=12, decimal_places=8)
-    longitude = models.DecimalField(max_digits=12, decimal_places=8)
+    latitude = models.DecimalField(max_digits=22, decimal_places=16)
+    longitude = models.DecimalField(max_digits=22, decimal_places=16)
     sequence = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

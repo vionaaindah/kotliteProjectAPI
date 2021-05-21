@@ -9,10 +9,6 @@ from rest_framework.views import APIView
 from drivers.models import *
 # from rest_framework.permissions import IsAuthenticated
 
-class PassengersViewSet(viewsets.ModelViewSet):
-#     permission_classes = (IsAuthenticated,)
-    queryset =  Passengers.objects.all()
-    serializer_class = PassengersSerializer
 
 class PassengerDetailAPIView(ListAPIView):
     # class for get Detail Passenger
@@ -188,9 +184,25 @@ class PassengerCreateAPIView(ListCreateAPIView):
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
     def get(self, request, format=None):
-        global psg
+        global psg, fee
 
         psg = request.data
+        if int(psg['distance']) < 1000:
+            fee = 2000
+        elif int(psg['distance']) < 2000:
+            fee = 3500
+        elif int(psg['distance']) < 3000:
+            fee = 5000
+        elif int(psg['distance']) < 4000:
+            fee = 6000
+        elif int(psg['distance']) < 5000:
+            fee = 7000
+        elif int(psg['distance']) < 6000:
+            fee = 8000
+        elif int(psg['distance']) < 7000:
+            fee = 9000
+        else:
+            fee = 10000
         return Response(psg)
     
     def post(self, request, format=None):
@@ -202,6 +214,9 @@ class PassengerCreateAPIView(ListCreateAPIView):
             'lat_drop': psg['lat_drop'],
             'long_drop': psg['long_drop'],
             'time': psg['time'],
+            'distance': psg['distance'],
+            'time_taken': psg['time_taken'],
+            'fee': fee,
             'status': 'Pending',
         }
         serializer = PassengersSerializer(data=passenger)
