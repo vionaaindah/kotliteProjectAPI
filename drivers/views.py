@@ -95,6 +95,20 @@ class DriverDetailAPIView(ListAPIView):
         serializer = DriversListSerializer(queryset)
         return Response(serializer.data)
 
+class RecommendationListAPIView(ListAPIView):
+    # class for get recommendation List for Passengers
+    # permission_classes = [IsAuthenticated]
+    serializer_class = DriversListSerializer
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RecommendationListAPIView, self).dispatch(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        id = self.request.user.pk
+        psg = Passengers.objects.filter(user=id).last()
+        return Order.objects.filter(time=psg.time)
+
 class RidingView(APIView):
     #class for change status passenger to Riding
     # permission_classes = (IsAuthenticated,)
