@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import *
 from rest_framework.views import APIView
+import requests
 
 class OrderCreateAPIView(CreateAPIView):
     serializer_class = OrderSerializer
@@ -33,9 +34,52 @@ class OrderCreateAPIView(CreateAPIView):
         serializer = OrderSerializer(data=content)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        API_KEY = 'AIzaSyC9rKUqSrytIsC7QrPExD8v7oLNB3eOr5k'
+        LAT_START = request.data['lat_start']
+        LONG_START = request.data['long_start']
+        LAT_END = request.data['lat_end']
+        LONG_END = request.data['long_end']
+        
+        response = requests.get(f'https://maps.googleapis.com/maps/api/directions/json?origin={LAT_START},{LONG_START}&destination={LAT_END},{LONG_END}&key={API_KEY}')
+        data = response.json()
+        routes = data['routes'][0]['legs'][0]['steps']
+        
+        LAT_ROUTES = [] 
+        LONG_ROUTES = []
+        
+        for route in routes:
+            lat_start = route['start_location']['lat']
+            long_start = route['start_location']['lng']
+            lat_end = route['end_location']['lat']
+            long_end = route['end_location']['lng']
+                
+            if lat_start not in LAT_ROUTES:
+                LAT_ROUTES.append(lat_start)
+            if long_start not in LONG_ROUTES:
+                LONG_ROUTES.append(long_start)
+            if lat_end not in LAT_ROUTES:
+                LAT_ROUTES.append(lat_end)
+            if long_end not in LONG_ROUTES:
+                LONG_ROUTES.append(long_end)
+                            
+        id=request.user.pk
+        queryset = Order.objects.filter(user=id).last()
+        for i in range(len(LAT_ROUTES)):
+            fd = {
+                'order': queryset.id,
+                'latitude': LAT_ROUTES[i],
+                'longitude': LONG_ROUTES[i],
+                'sequence': i+1,
+            }
+            serializerfd = FindingDriverSerializer(data=fd)
+            if serializerfd.is_valid():
+                serializerfd.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class DriverDetailAPIView(ListAPIView):
     # class for get Detail Driver
@@ -68,9 +112,14 @@ class RidingView(APIView):
         serializer = StatusUpdateSerializer(order, data=data, partial=True)
         if serializer.is_valid():
             order = serializer.save()
+            driver = Order.objects.get(id=order.pk)
             list = Passengers.objects.filter(order=order.pk, status='Accepted')
             for item in list:
                 item.status = 'Arriving'
+                if driver.total_psg == 2:
+                    item.fee = item.fee - (item.fee * 0.1)
+                elif driver.total_psg > 2:
+                    item.fee = item.fee - (item.fee * 0.2)
                 item.save()
             return Response(StatusUpdateSerializer(order).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

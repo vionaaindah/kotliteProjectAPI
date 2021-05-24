@@ -8,7 +8,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(FindingDriver)
 class FindingDriverAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'order', 'latitude', 'longitude', )
+    list_display = ('pk', 'order', 'latitude', 'longitude', 'sequence', )
     list_filter = ('order', )
     
 admin.site.site_header = "Kotlite Admin"
