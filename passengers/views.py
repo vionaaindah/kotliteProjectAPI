@@ -35,7 +35,7 @@ class PassengersPendingListAPIView(ListAPIView):
     def get_queryset(self):
         orders = self.kwargs['order']
         return Passengers.objects.filter(order=orders, status="Pending")
-        
+
 class PassengersListAPIView(ListAPIView):
     # class for get List Passengers
     serializer_class = PassengersListSerializer
@@ -188,52 +188,98 @@ class DoneView(APIView):
     end class for change passengers status
 '''
 
-class PassengerCreateAPIView(ListCreateAPIView):
+# class PassengerCreateAPIView(ListCreateAPIView):
+#     # class for create passenger
+#     serializer_class = PassengersSerializer
+#     # permission_classes = (IsAuthenticated,)
+#     @method_decorator(csrf_exempt)
+#     def dispatch(self, request, *args, **kwargs):
+#         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
+#     def get(self, request, format=None):
+#         global psg, fee
+
+#         psg = request.data
+#         if int(psg['distance']) < 1000:
+#             fee = 2000
+#         elif int(psg['distance']) < 2000:
+#             fee = 3500
+#         elif int(psg['distance']) < 3000:
+#             fee = 5000
+#         elif int(psg['distance']) < 4000:
+#             fee = 6000
+#         elif int(psg['distance']) < 5000:
+#             fee = 7000
+#         elif int(psg['distance']) < 6000:
+#             fee = 8000
+#         elif int(psg['distance']) < 7000:
+#             fee = 9000
+#         else:
+#             fee = 10000
+#         return Response(psg)
+    
+#     def post(self, request, format=None):
+#         passenger = {
+#             'user': request.user.id,
+#             'order': request.data['order'],
+#             'lat_pick': psg['lat_pick'],
+#             'long_pick': psg['long_pick'],
+#             'lat_drop': psg['lat_drop'],
+#             'long_drop': psg['long_drop'],
+#             'time': psg['time'],
+#             'distance': psg['distance'],
+#             'time_taken': psg['time_taken'],
+#             'fee': fee,
+#             'status': 'Pending',
+#         }
+#         serializer = PassengersSerializer(data=passenger)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PassengerCreateAPIView(APIView):
     # class for create passenger
     serializer_class = PassengersSerializer
     # permission_classes = (IsAuthenticated,)
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
-    def get(self, request, format=None):
-        global psg, fee
-
-        psg = request.data
-        if int(psg['distance']) < 1000:
-            fee = 2000
-        elif int(psg['distance']) < 2000:
-            fee = 3500
-        elif int(psg['distance']) < 3000:
-            fee = 5000
-        elif int(psg['distance']) < 4000:
-            fee = 6000
-        elif int(psg['distance']) < 5000:
-            fee = 7000
-        elif int(psg['distance']) < 6000:
-            fee = 8000
-        elif int(psg['distance']) < 7000:
-            fee = 9000
-        else:
-            fee = 10000
-        return Response(psg)
     
     def post(self, request, format=None):
-        passenger = {
+        global fee
+        psg = {
             'user': request.user.id,
-            'order': request.data['order'],
-            'lat_pick': psg['lat_pick'],
-            'long_pick': psg['long_pick'],
-            'lat_drop': psg['lat_drop'],
-            'long_drop': psg['long_drop'],
-            'time': psg['time'],
-            'distance': psg['distance'],
-            'time_taken': psg['time_taken'],
-            'fee': fee,
+            'lat_pick': request.data['lat_pick'],
+            'long_pick': request.data['long_pick'],
+            'lat_drop': request.data['lat_drop'],
+            'long_drop': request.data['long_drop'],
+            'time': request.data['time'],
+            'distance': request.data['distance'],
+            'time_taken': request.data['time_taken'],
             'status': 'Pending',
         }
-        serializer = PassengersSerializer(data=passenger)
+        serializer = PassengersSerializer(data=psg)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request, *args, **kwargs):
+        id=request.user.pk
+        psg = Passengers.objects.filter(user=id).last()
 
+        km = psg.distance // 1000
+        if km == 0:
+            fee = 6000
+        else:
+            fee = 6000 + ((km) * 2000)
+        
+        data = {
+            'order': request.data['order'],
+            'fee': fee,
+        }
+        serializer = PassengersSerializer(psg, data=data, partial=True)
+        if serializer.is_valid():
+            passengers = serializer.save()
+            return Response(PassengersSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
