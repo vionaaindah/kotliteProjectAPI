@@ -17,7 +17,6 @@ import pandas as pd
 import datetime
 import re
 
-
 class OrderCreateAPIView(CreateAPIView):
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
@@ -34,8 +33,8 @@ class OrderCreateAPIView(CreateAPIView):
         deptime = datetime.datetime.strptime(
             request.data['time'], '%d-%m-%Y %H:%M')
 
-        data = gmaps_init()
-        direction = data.directions(origin=start_point, destination=end_point,
+        gmaps = gmaps_init()
+        direction = gmaps.directions(origin=start_point, destination=end_point,
                                     language='id', departure_time=deptime)
         routes = direction[0]['legs'][0]['steps']
 
@@ -150,13 +149,18 @@ class RecommendationListAPIView(ListAPIView):
     def post(self, request, format=None):
         """
         request = {
-            'pickup': [lat, long],
-            'dropoff': [lat, long],
+            'pickup_lat': lat,
+            'pickup_long': long,
+            'dropoff_lat': lat,
+            'dropoff_long': long,
             'pickup_time': '25-06-2021 15:45',
         }
         """
-        query = [request.data['pickup'], request.data['dropoff']]
-        time = pd.to_datetime(request.data['pickup_time'])
+        query = [
+            [float(request.data['lat_pick']), float(request.data['long_pick'])],
+            [float(request.data['lat_drop']), float(request.data['long_drop'])]
+        ]
+        time = pd.to_datetime(request.data['time'])
 
         # get all order data and make it to dataframe
         data_order = Order.objects.all()
@@ -197,12 +201,49 @@ class RecommendationListAPIView(ListAPIView):
             if (pick_dist <= 0.7) & (drop_dist <= 0.7):
                 recommendation.append(sd[1])
 
+        # direction API
+        start_point = [request.data['lat_pick'], request.data['long_pick']]
+        end_point = [request.data['lat_drop'], request.data['long_drop']]
+
+        deptime = datetime.datetime.strptime(
+            request.data['time'], '%d-%m-%Y %H:%M')
+        gmaps = gmaps_init()
+        direction = gmaps.directions(origin=start_point, destination=end_point,
+                                    language='id', departure_time=deptime)
+
+        start_address = direction[0]['legs'][0]['start_address']
+        end_address = direction[0]['legs'][0]['end_address']
+
+        # adress = 'lt 4, Lippo Plaza Batu, Jl. Diponegoro No.1, Sisir, Kec. Batu, Kota Batu, Jawa Timur 65314, Indonesia'
+        start_add_save = re.split(',', start_address)
+        end_add_save = re.split(',', end_address)
+
+        # result = ['lt 4', 'Lippo Plaza Batu', 'Jl. Diponegoro No.1', 'Sisir', 'Kec. Batu', Kota Batu,'Jawa Timur 65314', 'Indonesia']
+        place_pick = ', '.join(start_add_save[:-2])
+        place_drop = ', '.join(end_add_save[:-2])
+
         # sampai sini dapat id ordernya dalam bentuk list, gimana cara dapetin data dari list id order
         # [1,2,3,4]
         if len(recommendation) > 0:
             content = Order.objects.filter(id__in=recommendation)
+            psg_data = {
+                'user': request.user.pk,
+                'lat_pick': float(request.data['lat_pick']),
+                'long_pick': float(request.data['long_pick']),
+                'lat_drop': float(request.data['lat_drop']),
+                'long_drop': float(request.data['long_drop']),
+                'place_pick': place_pick,
+                'place_drop':place_drop,
+                'time': request.data['time'],
+                'status': 'Pending',
+            }
             serializer = OrderSerializer(data=content, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer.is_valid()
+            data_return = {
+                'psg_data': psg_data,
+                'recommendations': serializer.data
+            }
+            return Response(data=data_return, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_204_NO_CONTENT)
 

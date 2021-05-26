@@ -32,8 +32,6 @@ class TFNearestNeighbor():
         self.values = None
         self.indices = None
 
-        self.result = self.values, self.indices
-
     def fit(self, train, query):
         self.train = train
         self.query = query

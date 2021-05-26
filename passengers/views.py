@@ -241,22 +241,21 @@ class PassengerCreateAPIView(APIView):
         return result
 
     def post(self, request, format=None):
-        # TODO : edit the passenger model
         loc_pick = (request.data['lat_pick'], request.data['long_pick'])
         loc_drop = (request.data['lat_drop'], request.data['long_drop'])
 
         psg = {
-            'user': request.user.id,
-            'lat_pick': request.data['lat_pick'],
-            'long_pick': request.data['long_pick'],
-            'place_pick': self.geocode(loc_pick),
-            'lat_drop': request.data['lat_drop'],
-            'long_drop': request.data['long_drop'],
-            'place_drop': self.geocode(loc_drop),
-            'time': request.data['time'],
+            # 'user': request.user.id,
+            # 'lat_pick': request.data['lat_pick'],
+            # 'long_pick': request.data['long_pick'],
+            # 'place_pick': self.geocode(loc_pick),
+            # 'lat_drop': request.data['lat_drop'],
+            # 'long_drop': request.data['long_drop'],
+            # 'place_drop': self.geocode(loc_drop),
+            # 'time': request.data['time'],
             'distance': request.data['distance'],
             'time_taken': request.data['time_taken'],
-            'status': 'Pending',
+            # 'status': 'Pending',
         }
         serializer = PassengersSerializer(data=psg)
         if serializer.is_valid():
