@@ -3,5 +3,5 @@ from .models import *
 
 @admin.register(Passengers)
 class RequestAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'order', 'lat_pick', 'long_pick', 'lat_drop', 'long_drop', 'fee', )
+    list_display = ('pk', 'user', 'order', 'place_pick', 'place_drop', 'fee', )
     list_filter = ('time', 'status', 'order',)

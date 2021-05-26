@@ -3,7 +3,7 @@ from .models import *
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'lat_start', 'long_start', 'lat_end', 'long_end', 'income', )
+    list_display = ('pk', 'user', 'place_start', 'place_end', 'income', )
     list_filter = ('time', 'status', )
 
 @admin.register(FindingDriver)
