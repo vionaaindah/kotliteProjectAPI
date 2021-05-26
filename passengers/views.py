@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from drivers.models import *
 from rest_framework.permissions import IsAuthenticated
 
+from maps_env import gmaps_init
+import re
+
 
 class PassengerDetailAPIView(ListAPIView):
     # class for get Detail Passenger
@@ -47,10 +50,11 @@ class PassengersPendingListAPIView(ListAPIView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengersPendingListAPIView, self).dispatch(request, *args, **kwargs)
-    
+
     def get_queryset(self):
         orders = self.kwargs['order']
         return Passengers.objects.filter(order=orders, status="Pending")
+
 
 class PassengersListAPIView(ListAPIView):
     # class for get List Passengers
@@ -60,33 +64,33 @@ class PassengersListAPIView(ListAPIView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengersListAPIView, self).dispatch(request, *args, **kwargs)
-    
+
     def get_queryset(self):
         orders = self.kwargs['order']
         return Passengers.objects.filter(order=orders).exclude(status="Denied").exclude(status="Pending")
 
-'''
-    class for change passengers status
-'''
+
+# ====================== START CHANGE PASSENGERS STATUS ==================================
 
 class AcceptedView(APIView):
-    #class for change status passenger to Accepted
+    # class for change status passenger to Accepted
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(AcceptedView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Accepted'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            order = get_object_or_404(Order,pk=passengers.order.pk)
+            order = get_object_or_404(Order, pk=passengers.order.pk)
             order.total_psg += 1
             order.save()
             if order.total_psg == order.capacity:
@@ -95,81 +99,89 @@ class AcceptedView(APIView):
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class DeniedView(APIView):
-    #class for change status passenger to Denied
+    # class for change status passenger to Denied
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(DeniedView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Denied'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ArrivedView(APIView):
-    #class for change status passenger to Arrived
+    # class for change status passenger to Arrived
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(ArrivedView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Arrived'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class StartRideView(APIView):
-    #class for change status passenger to Start Ride
+    # class for change status passenger to Start Ride
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(StartRideView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Start Ride'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class CompleteRideView(APIView):
-    #class for change status passenger to Complete Ride
+    # class for change status passenger to Complete Ride
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(CompleteRideView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Complete Ride'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
             return Response(StatusUpdateSerializer(passengers).data)
@@ -177,35 +189,35 @@ class CompleteRideView(APIView):
 
 
 class DoneView(APIView):
-    #class for change status passenger to Done
+    # class for change status passenger to Done
     permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(DoneView, self).dispatch(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Done'
         }
-        serializer = StatusUpdateSerializer(passengers, data=data, partial=True)
+        serializer = StatusUpdateSerializer(
+            passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            order = get_object_or_404(Order,pk=passengers.order.pk)
+            order = get_object_or_404(Order, pk=passengers.order.pk)
             order.income = order.income + passengers.fee 
             order.save()
-            total_done = Passengers.objects.filter(order=passengers.order.pk, status='Done').count()
+            total_done = Passengers.objects.filter(
+                order=passengers.order.pk, status='Done').count()
             if order.total_psg == total_done:
                 order.status = 'Done'
                 order.save()
             return Response(StatusUpdateSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-'''
-    end class for change passengers status
-'''
+# ====================== END CHANGE PASSENGERS STATUS ==================================
 
 class PassengerCreateAPIView(APIView):
     # class for create passenger
@@ -215,15 +227,32 @@ class PassengerCreateAPIView(APIView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
-    
+
+    def geocode(self, loc):
+        gmaps = gmaps_init()
+
+        geocode = gmaps.reverse_geocode(
+            latlng=loc, result_type=['point_of_interest'])
+
+        # parse geocode
+        address = geocode[0]['formatted_address']
+        re_adress = re.split(',', address)
+        result = ', '.join(re_adress[:-2])
+        return result
+
     def post(self, request, format=None):
-        global fee
+        # TODO : edit the passenger model
+        loc_pick = (request.data['lat_pick'], request.data['long_pick'])
+        loc_drop = (request.data['lat_drop'], request.data['long_drop'])
+
         psg = {
             'user': request.user.id,
             'lat_pick': request.data['lat_pick'],
             'long_pick': request.data['long_pick'],
+            # 'place_pick': self.geocode(loc_pick),
             'lat_drop': request.data['lat_drop'],
             'long_drop': request.data['long_drop'],
+            # 'place_drop': self.geocode(loc_drop),
             'time': request.data['time'],
             'distance': request.data['distance'],
             'time_taken': request.data['time_taken'],
@@ -234,9 +263,9 @@ class PassengerCreateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def patch(self, request, *args, **kwargs):
-        id=request.user.pk
+        id = request.user.pk
         psg = Passengers.objects.filter(user=id).last()
 
         km = psg.distance // 1000
@@ -248,7 +277,7 @@ class PassengerCreateAPIView(APIView):
             fee = 6000
         else:
             fee = 6000 + ((km - 1) * 2000)
-        
+
         data = {
             'order': request.data['order'],
             'fee': fee,

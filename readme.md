@@ -1,4 +1,4 @@
-# 📱 *Kᴏᴛʟɪᴛᴇ API*
+# 📱 _Kᴏᴛʟɪᴛᴇ API_
 
 Kotlite (Angkot Elite) App: A Ridesharing Application for Optimising Vehicle Capacity to Decrease Traffic Congestion as one of Indonesia’s Priority Issues.
 This application is a product of the Brillante Team (BA21-CAP0176) for the Capstone Project of Bangkit Academy 2021 led by Google, Gojek, Tokopedia, and Traveloka.
@@ -14,7 +14,7 @@ cd kotliteProjectAPI
 
 **2. Configurasi database di kotliteProjectAPI/settings.py**
 
-   If you want to run a local server then uncomment this part of the `settings.py`
+If you want to run a local server then uncomment this part of the `settings.py`
 
 ```python
 # UNCOMMENT THIS CODE FOR LOCAL TESTING
@@ -58,7 +58,21 @@ env\scripts\activate
 pip install -r requirements.txt
 ```
 
-**4. Run Django migrations to set up your models**
+**4. Create file maps_env.py**
+
+create `maps_env.py` in root folder, and copy this code
+
+```python
+import googlemaps
+
+def gmaps_init():
+    API_KEY = '[YOUR API KEY]'
+    client = googlemaps.Client(key=API_KEY)
+
+    return client
+```
+
+**5. Run Django migrations to set up your models**
 
 ```bash
 python manage.py makemigrations
@@ -68,7 +82,7 @@ python manage.py makemigrations users
 python manage.py migrate
 ```
 
-**5. Start a local web server:**
+**6. Start a local web server:**
 
 ```bash
 python manage.py runserver
@@ -76,7 +90,7 @@ python manage.py runserver
 
 In your browser, go to `http://localhost:8000/`
 
-**6. Using the Django admin console**
+**7. Using the Django admin console**
 
 - Create a superuser. You need to define a username and password:
 
@@ -90,7 +104,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-In your browser, go to  `http://localhost:8000/admin` Log in to the admin site using the username and password you used when you ran createsuperuser.
+In your browser, go to `http://localhost:8000/admin` Log in to the admin site using the username and password you used when you ran createsuperuser.
 
 **📌Documentation**
 
