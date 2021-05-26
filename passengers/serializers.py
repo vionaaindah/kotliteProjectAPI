@@ -15,7 +15,8 @@ class PassengersListSerializer(serializers.ModelSerializer):
         model = Passengers
         fields = ('id', 'first_name', 'last_name', 'lat_pick', 
                 'long_pick', 'lat_drop', 'long_drop', 'status',
-                'time', 'fee', 'distance', 'time_taken', 'order', 'phone'
+                'time', 'fee', 'distance', 'time_taken', 'order', 
+                'phone', 'place_pick', 'place_drop',
             )
 
 class StatusUpdateSerializer(serializers.ModelSerializer):

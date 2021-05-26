@@ -9,6 +9,8 @@ class Passengers(models.Model):
     long_pick = models.DecimalField(max_digits=22, decimal_places=16)
     lat_drop = models.DecimalField(max_digits=22, decimal_places=16)
     long_drop = models.DecimalField(max_digits=22, decimal_places=16)
+    place_pick = models.CharField(max_length=200, blank=True, null=True)
+    place_drop  = models.CharField(max_length=200, blank=True, null=True)
     status = models.CharField(max_length=200)
     time = models.CharField(max_length=200)
     fee = models.IntegerField(blank=True, null=True)

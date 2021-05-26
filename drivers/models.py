@@ -7,6 +7,8 @@ class Order(models.Model):
     long_start = models.DecimalField(max_digits=22, decimal_places=16)
     lat_end = models.DecimalField(max_digits=22, decimal_places=16)
     long_end = models.DecimalField(max_digits=22, decimal_places=16)
+    place_start = models.CharField(max_length=200, blank=True, null=True)
+    place_end  = models.CharField(max_length=200, blank=True, null=True)
     total_psg = models.IntegerField()
     status = models.CharField(max_length=200)
     time  = models.CharField(max_length=200)
