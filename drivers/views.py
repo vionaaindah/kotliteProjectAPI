@@ -58,7 +58,7 @@ class OrderCreateAPIView(CreateAPIView):
             'long_end': end_point[1],
             'total_psg': 0,
             'income': 0,
-            'status': 'Waiting',
+            'status': 'Finding',
             'time': request.data['time'],
             'capacity': request.data['capacity'],
             'car_type': request.data['car_type'],
@@ -75,6 +75,9 @@ class OrderCreateAPIView(CreateAPIView):
         LAT_ROUTES = []
         LONG_ROUTES = []
 
+        LAT_ROUTES.append(request.data['lat_start'])
+        LONG_ROUTES.append(request.data['long_start'])
+
         for route in routes:
             lat_start = route['start_location']['lat']
             long_start = route['start_location']['lng']
@@ -89,6 +92,9 @@ class OrderCreateAPIView(CreateAPIView):
                 LAT_ROUTES.append(lat_end)
             if long_end not in LONG_ROUTES:
                 LONG_ROUTES.append(long_end)
+
+        LAT_ROUTES.append(request.data['lat_end'])
+        LONG_ROUTES.append(request.data['long_end'])
 
         id = request.user.pk
         queryset = Order.objects.filter(user=id).last()
@@ -183,7 +189,6 @@ class RecommendationListAPIView(ListAPIView):
                              train[model.indices[0]], train[model.indices[1]]))
 
         sorted_dist = sorted(dist)
-
         recommendation = []
 
         for sd in sorted_dist:
