@@ -12,8 +12,8 @@ import requests
 
 class OrderCreateAPIView(CreateAPIView):
     serializer_class = OrderSerializer
-    # permission_classes = (IsAuthenticated,)
-
+    permission_classes = (IsAuthenticated,)
+    
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(OrderCreateAPIView, self).dispatch(request, *args, **kwargs)
@@ -26,6 +26,7 @@ class OrderCreateAPIView(CreateAPIView):
             'lat_end': request.data['lat_end'],
             'long_end': request.data['long_end'],
             'total_psg': 0,
+            'income': 0,
             'status': 'Waiting',
             'time': request.data['time'],
             'capacity': request.data['capacity'],
@@ -34,8 +35,9 @@ class OrderCreateAPIView(CreateAPIView):
         serializer = OrderSerializer(data=content)
         if serializer.is_valid():
             serializer.save()
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         API_KEY = 'AIzaSyC9rKUqSrytIsC7QrPExD8v7oLNB3eOr5k'
         LAT_START = request.data['lat_start']
@@ -77,13 +79,15 @@ class OrderCreateAPIView(CreateAPIView):
             serializerfd = FindingDriverSerializer(data=fd)
             if serializerfd.is_valid():
                 serializerfd.save()
+            else :
+                return Response(serializerfd.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class DriverDetailAPIView(ListAPIView):
     # class for get Detail Driver
-    # permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -97,7 +101,7 @@ class DriverDetailAPIView(ListAPIView):
 
 class RecommendationListAPIView(ListAPIView):
     # class for get recommendation List for Passengers
-    # permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
     serializer_class = DriversListSerializer
 
     @method_decorator(csrf_exempt)
@@ -111,7 +115,7 @@ class RecommendationListAPIView(ListAPIView):
 
 class RidingView(APIView):
     #class for change status passenger to Riding
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)

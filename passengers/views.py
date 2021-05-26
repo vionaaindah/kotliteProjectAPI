@@ -7,12 +7,12 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from drivers.models import *
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 
 
 class PassengerDetailAPIView(ListAPIView):
     # class for get Detail Passenger
-    # permission_classes = [IsAuthenticated]
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -24,9 +24,25 @@ class PassengerDetailAPIView(ListAPIView):
         serializer = PassengersListSerializer(queryset)
         return Response(serializer.data)
 
+class InvoiceAPIView(ListAPIView):
+    # class for get Detail Passenger
+    permission_classes = (IsAuthenticated,)
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(InvoiceAPIView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, format=None, *args, **kwargs):
+        psg = request.user.id
+        order = kwargs['pk']
+        queryset = Passengers.objects.get(user=psg, order=order)
+        serializer = PassengersListSerializer(queryset)
+        return Response(serializer.data)
+
 class PassengersPendingListAPIView(ListAPIView):
     # class for get List Passengers
     serializer_class = PassengersListSerializer
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -39,6 +55,7 @@ class PassengersPendingListAPIView(ListAPIView):
 class PassengersListAPIView(ListAPIView):
     # class for get List Passengers
     serializer_class = PassengersListSerializer
+    permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -54,7 +71,7 @@ class PassengersListAPIView(ListAPIView):
 
 class AcceptedView(APIView):
     #class for change status passenger to Accepted
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -80,7 +97,7 @@ class AcceptedView(APIView):
 
 class DeniedView(APIView):
     #class for change status passenger to Denied
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -100,7 +117,7 @@ class DeniedView(APIView):
 
 class ArrivedView(APIView):
     #class for change status passenger to Arrived
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -120,7 +137,7 @@ class ArrivedView(APIView):
 
 class StartRideView(APIView):
     #class for change status passenger to Start Ride
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -140,7 +157,7 @@ class StartRideView(APIView):
 
 class CompleteRideView(APIView):
     #class for change status passenger to Complete Ride
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -161,7 +178,7 @@ class CompleteRideView(APIView):
 
 class DoneView(APIView):
     #class for change status passenger to Done
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = StatusUpdateSerializer
 
     @method_decorator(csrf_exempt)
@@ -177,6 +194,8 @@ class DoneView(APIView):
         if serializer.is_valid():
             passengers = serializer.save()
             order = get_object_or_404(Order,pk=passengers.order.pk)
+            order.income = order.income + passengers.fee 
+            order.save()
             total_done = Passengers.objects.filter(order=passengers.order.pk, status='Done').count()
             if order.total_psg == total_done:
                 order.status = 'Done'
@@ -188,59 +207,11 @@ class DoneView(APIView):
     end class for change passengers status
 '''
 
-# class PassengerCreateAPIView(ListCreateAPIView):
-#     # class for create passenger
-#     serializer_class = PassengersSerializer
-#     # permission_classes = (IsAuthenticated,)
-#     @method_decorator(csrf_exempt)
-#     def dispatch(self, request, *args, **kwargs):
-#         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
-#     def get(self, request, format=None):
-#         global psg, fee
-
-#         psg = request.data
-#         if int(psg['distance']) < 1000:
-#             fee = 2000
-#         elif int(psg['distance']) < 2000:
-#             fee = 3500
-#         elif int(psg['distance']) < 3000:
-#             fee = 5000
-#         elif int(psg['distance']) < 4000:
-#             fee = 6000
-#         elif int(psg['distance']) < 5000:
-#             fee = 7000
-#         elif int(psg['distance']) < 6000:
-#             fee = 8000
-#         elif int(psg['distance']) < 7000:
-#             fee = 9000
-#         else:
-#             fee = 10000
-#         return Response(psg)
-    
-#     def post(self, request, format=None):
-#         passenger = {
-#             'user': request.user.id,
-#             'order': request.data['order'],
-#             'lat_pick': psg['lat_pick'],
-#             'long_pick': psg['long_pick'],
-#             'lat_drop': psg['lat_drop'],
-#             'long_drop': psg['long_drop'],
-#             'time': psg['time'],
-#             'distance': psg['distance'],
-#             'time_taken': psg['time_taken'],
-#             'fee': fee,
-#             'status': 'Pending',
-#         }
-#         serializer = PassengersSerializer(data=passenger)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class PassengerCreateAPIView(APIView):
     # class for create passenger
     serializer_class = PassengersSerializer
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
@@ -269,10 +240,14 @@ class PassengerCreateAPIView(APIView):
         psg = Passengers.objects.filter(user=id).last()
 
         km = psg.distance // 1000
+
+        if psg.distance % 1000 >= 500:
+            km+1
+
         if km == 0:
             fee = 6000
         else:
-            fee = 6000 + ((km) * 2000)
+            fee = 6000 + ((km - 1) * 2000)
         
         data = {
             'order': request.data['order'],

@@ -12,6 +12,7 @@ class Order(models.Model):
     time  = models.CharField(max_length=200)
     capacity = models.IntegerField()
     car_type = models.CharField(max_length=200)
+    income = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:

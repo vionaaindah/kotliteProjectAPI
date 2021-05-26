@@ -18,7 +18,7 @@ class DriversListSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'first_name', 'last_name', 'lat_start', 
                 'long_start', 'lat_end', 'long_end', 'status',
-                'time', 'total_psg', 'capacity', 'car_type', 
+                'time', 'total_psg', 'capacity', 'car_type', 'income',
             )
 
 class StatusUpdateSerializer(serializers.ModelSerializer):
