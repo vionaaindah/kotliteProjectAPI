@@ -4,3 +4,5 @@ kotliteProjectAPI/settings.py
 */*/__pycache__
 */migrations
 env
+kotlite.sqlite3
+maps_env.py
