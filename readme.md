@@ -12,7 +12,7 @@ git clone https://github.com/SVeeIS/kotliteProjectAPI.git
 cd kotliteProjectAPI
 ```
 
-**2. Configurasi database di kotliteProjectAPI/settings.py**
+**2. Database configuration in kotliteProjectAPI/settings.py**
 
 If you want to run a local server then uncomment this part of the `settings.py`
 
