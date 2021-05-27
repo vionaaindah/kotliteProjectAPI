@@ -309,7 +309,7 @@ class OptimizeRouteAPIView(APIView):
         place_start = order.data['place_start']
         place_end = order.data['place_end']
         dtime = order.data['time']
-        psg_list = Passengers.objects.filter(order=order_id)
+        psg_list = Passengers.objects.filter(order=order_id).exclude(status="Denied").exclude(status="Pending")
         psg_frame = read_frame(psg_list, fieldnames=['place_pick', 'place_drop'])
         psg_data = psg_frame.values
 
