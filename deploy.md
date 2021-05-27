@@ -184,6 +184,10 @@ Set up **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-PAS
 
 Save **`settings.py`**
 
+## 📌Configuring maps environment
+
+Open file `maps_env.py` in root folder, and change `[YOUR API KEY]` with your API Key
+
 ## 📌Run the application on the Local computer
 
 **1. Set Up [Python environment](https://cloud.google.com/python/docs/setup),  including Python, `pip`, and `virtualenv`**
