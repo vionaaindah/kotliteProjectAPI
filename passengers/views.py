@@ -228,61 +228,25 @@ class PassengerCreateAPIView(APIView):
     def dispatch(self, request, *args, **kwargs):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
 
-    def geocode(self, loc):
-        gmaps = gmaps_init()
-
-        geocode = gmaps.reverse_geocode(
-            latlng=loc, result_type=['point_of_interest'])
-
-        # parse geocode
-        address = geocode[0]['formatted_address']
-        re_adress = re.split(',', address)
-        result = ', '.join(re_adress[:-2])
-        return result
-
-    def post(self, request, format=None):
-        loc_pick = (request.data['lat_pick'], request.data['long_pick'])
-        loc_drop = (request.data['lat_drop'], request.data['long_drop'])
-
+    def post(self, request, *args, **kwargs):
+        orders = kwargs['order']
         psg = {
-            # 'user': request.user.id,
-            # 'lat_pick': request.data['lat_pick'],
-            # 'long_pick': request.data['long_pick'],
-            # 'place_pick': self.geocode(loc_pick),
-            # 'lat_drop': request.data['lat_drop'],
-            # 'long_drop': request.data['long_drop'],
-            # 'place_drop': self.geocode(loc_drop),
-            # 'time': request.data['time'],
+            'user': request.data['user_id'],
+            'lat_pick': request.data['lat_pick'],
+            'long_pick': request.data['long_pick'],
+            'place_pick': request.data['place_pick'],
+            'lat_drop': request.data['lat_drop'],
+            'long_drop': request.data['long_drop'],
+            'place_drop': request.data['place_drop'],
+            'time': request.data['time'],
             'distance': request.data['distance'],
             'time_taken': request.data['time_taken'],
-            # 'status': 'Pending',
+            'fee': request.data['fee'],
+            'order': orders,
+            'status': 'Pending',
         }
         serializer = PassengersSerializer(data=psg)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def patch(self, request, *args, **kwargs):
-        id = request.user.pk
-        psg = Passengers.objects.filter(user=id).last()
-
-        km = psg.distance // 1000
-
-        if psg.distance % 1000 >= 500:
-            km+1
-
-        if km == 0:
-            fee = 6000
-        else:
-            fee = 6000 + ((km - 1) * 2000)
-
-        data = {
-            'order': request.data['order'],
-            'fee': fee,
-        }
-        serializer = PassengersSerializer(psg, data=data, partial=True)
-        if serializer.is_valid():
-            passengers = serializer.save()
-            return Response(PassengersSerializer(passengers).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

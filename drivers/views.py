@@ -26,7 +26,6 @@ class OrderCreateAPIView(CreateAPIView):
         return super(OrderCreateAPIView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, format=None):
-        # TODO : edit the order model
         start_point = [request.data['lat_start'], request.data['long_start']]
         end_point = [request.data['lat_end'], request.data['long_end']]
 
@@ -36,16 +35,17 @@ class OrderCreateAPIView(CreateAPIView):
         gmaps = gmaps_init()
         direction = gmaps.directions(origin=start_point, destination=end_point,
                                     language='id', departure_time=deptime)
-        routes = direction[0]['legs'][0]['steps']
 
+        # got the route, start address, and end address
+        routes = direction[0]['legs'][0]['steps']
         start_address = direction[0]['legs'][0]['start_address']
         end_address = direction[0]['legs'][0]['end_address']
 
-        # adress = 'lt 4, Lippo Plaza Batu, Jl. Diponegoro No.1, Sisir, Kec. Batu, Kota Batu, Jawa Timur 65314, Indonesia'
+        # split address by ,
         start_add_save = re.split(',', start_address)
         end_add_save = re.split(',', end_address)
 
-        # result = ['lt 4', 'Lippo Plaza Batu', 'Jl. Diponegoro No.1', 'Sisir', 'Kec. Batu', Kota Batu,'Jawa Timur 65314', 'Indonesia']
+        # join address with , and remove the last two of list
         place_start = ', '.join(start_add_save[:-2])
         place_end = ', '.join(end_add_save[:-2])
 
@@ -108,7 +108,6 @@ class OrderCreateAPIView(CreateAPIView):
             }
             fdcontent.append(fd)
 
-        # TO DO : Mungkin disini bis di cek lagi deh
         serializerfd = FindingDriverSerializer(data=fdcontent, many=True)
         if serializerfd.is_valid():
             serializerfd.save()
@@ -149,11 +148,11 @@ class RecommendationListAPIView(ListAPIView):
     def post(self, request, format=None):
         """
         request = {
-            'pickup_lat': lat,
-            'pickup_long': long,
-            'dropoff_lat': lat,
-            'dropoff_long': long,
-            'pickup_time': '25-06-2021 15:45',
+            'lat_pick': lat,
+            'long_pick': long,
+            'lat_drop': lat,
+            'long_drop': long,
+            'time': '25-06-2021 15:45',
         }
         """
         query = [
@@ -211,33 +210,53 @@ class RecommendationListAPIView(ListAPIView):
         direction = gmaps.directions(origin=start_point, destination=end_point,
                                     language='id', departure_time=deptime)
 
+        
+        # got the distance value, duration value, start address and end address
+        distance_value = direction[0]['legs'][0]['distance']['value']
+        time_taken = direction[0]['legs'][0]['duration_in_traffic']['value']
         start_address = direction[0]['legs'][0]['start_address']
         end_address = direction[0]['legs'][0]['end_address']
 
-        # adress = 'lt 4, Lippo Plaza Batu, Jl. Diponegoro No.1, Sisir, Kec. Batu, Kota Batu, Jawa Timur 65314, Indonesia'
+        # split address by ,
         start_add_save = re.split(',', start_address)
         end_add_save = re.split(',', end_address)
 
-        # result = ['lt 4', 'Lippo Plaza Batu', 'Jl. Diponegoro No.1', 'Sisir', 'Kec. Batu', Kota Batu,'Jawa Timur 65314', 'Indonesia']
+        # join address with , and remove the last two of list
         place_pick = ', '.join(start_add_save[:-2])
         place_drop = ', '.join(end_add_save[:-2])
 
-        # sampai sini dapat id ordernya dalam bentuk list, gimana cara dapetin data dari list id order
-        # [1,2,3,4]
+        # maximum fee
+        km = distance_value // 1000
+
+        if distance_value % 1000 >= 500:
+            km+1
+
+        if km == 0:
+            fee = 6000
+        else:
+            fee = 6000 + ((km - 1) * 2000)
+
+        # minimum fee
+        min_fee = fee - (fee * 0.2)
+
         if len(recommendation) > 0:
             content = Order.objects.filter(id__in=recommendation)
             psg_data = {
                 'user': request.user.pk,
                 'lat_pick': float(request.data['lat_pick']),
                 'long_pick': float(request.data['long_pick']),
+                'place_pick': place_pick,
                 'lat_drop': float(request.data['lat_drop']),
                 'long_drop': float(request.data['long_drop']),
-                'place_pick': place_pick,
                 'place_drop':place_drop,
+                'distance': distance_value,
+                'time_taken': time_taken,
+                'maximum_fee': fee,
+                'minimum_fee': min_fee,
                 'time': request.data['time'],
                 'status': 'Pending',
             }
-            serializer = OrderSerializer(data=content, many=True)
+            serializer = DriversListSerializer(data=content, many=True)
             serializer.is_valid()
             data_return = {
                 'psg_data': psg_data,
@@ -276,3 +295,35 @@ class RidingView(APIView):
                 item.save()
             return Response(StatusUpdateSerializer(order).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OptimizeRouteAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = OrderSerializer
+
+    def get(self, request, *args, **kwargs):
+        # ger order id from link
+        order_id = kwargs['order']
+        # get order object
+        queryset = Order.objects.get(pk=order_id)
+        order = OrderSerializer(queryset)
+        place_start = order.data['place_start']
+        place_end = order.data['place_end']
+        dtime = order.data['time']
+        psg_list = Passengers.objects.filter(order=order_id)
+        psg_frame = read_frame(psg_list, fieldnames=['place_pick', 'place_drop'])
+        psg_data = psg_frame.values
+
+        psg_place = []
+
+        for col in psg_data:
+            for plc in col:
+                psg_place.append('via:'+plc)
+
+        gmaps = gmaps_init()
+        time = datetime.datetime.strptime(
+            dtime, '%d-%m-%Y %H:%M')
+
+        optimize_route = gmaps.directions(origin=place_start, destination=place_end, language='id', 
+                                            departure_time=time, waypoints=psg_place, optimize_waypoints=True)
+        
+        return Response(data=optimize_route, status=status.HTTP_200_OK)
