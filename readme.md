@@ -58,19 +58,10 @@ env\scripts\activate
 pip install -r requirements.txt
 ```
 
-**4. Create file maps_env.py**
+**4. Setup maps_env.py**
 
-create `maps_env.py` in root folder, and copy this code
+open file `maps_env.py` in root folder, and change `[YOUR API KEY]` with your API Key
 
-```python
-import googlemaps
-
-def gmaps_init():
-    API_KEY = '[YOUR API KEY]'
-    client = googlemaps.Client(key=API_KEY)
-
-    return client
-```
 
 **5. Run Django migrations to set up your models**
 
