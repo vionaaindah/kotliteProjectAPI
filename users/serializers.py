@@ -12,14 +12,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'phone')
 
-#class for register user
-class PhoneSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ['phone']
-
+# class for register user
 class RegisterSerializer(serializers.ModelSerializer):
-    # additionals = PhoneSerializer()
+    # validate email
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=User.objects.all())]
@@ -37,6 +32,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             'last_name': {'required': True}
         }
 
+    # validate password and password2 is same
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
@@ -44,13 +40,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        # phone_number = validated_data.['phone']
+        # create user
         user = User.objects.create(
             username=validated_data['username'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name']
         )
+        # save phone to profile model
         phone = Profile.objects.create(user=user, phone=validated_data['phone'])
         
         user.set_password(validated_data['password'])
@@ -80,12 +77,14 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
         model = User
         fields = ('old_password', 'password', 'password2')
 
+    # validate password and password2 is same
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
 
         return attrs
 
+    # validate the old_password is same with the user password
     def validate_old_password(self, value):
         user = self.context['request'].user
         if not user.check_password(value):

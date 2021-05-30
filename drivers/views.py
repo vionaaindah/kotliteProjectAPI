@@ -18,6 +18,7 @@ import datetime
 import re
 
 class OrderCreateAPIView(CreateAPIView):
+    # class for create order from diver
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
     
@@ -65,6 +66,7 @@ class OrderCreateAPIView(CreateAPIView):
             'place_end': place_end
         }
 
+        # save content to order table
         serializer = OrderSerializer(data=content)
         if serializer.is_valid():
             serializer.save()
@@ -96,6 +98,7 @@ class OrderCreateAPIView(CreateAPIView):
         LONG_ROUTES.append(request.data['long_end'])
 
         id = request.user.pk
+        # get the last order from driver
         queryset = Order.objects.filter(user=id).last()
         fdcontent = []
 
@@ -108,10 +111,11 @@ class OrderCreateAPIView(CreateAPIView):
             }
             fdcontent.append(fd)
 
+        # save long and lat from route to finding driver table
         serializerfd = FindingDriverSerializer(data=fdcontent, many=True)
         if serializerfd.is_valid():
             serializerfd.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializerfd.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -286,6 +290,7 @@ class RidingView(APIView):
             order = serializer.save()
             driver = Order.objects.get(id=order.pk)
             list = Passengers.objects.filter(order=order.pk, status='Accepted')
+            # change status from each passengers in this order to Arriving, and give discount if total passengers in this order more than 2
             for item in list:
                 item.status = 'Arriving'
                 if driver.total_psg == 2:
@@ -301,7 +306,7 @@ class OptimizeRouteAPIView(APIView):
     serializer_class = OrderSerializer
 
     def get(self, request, *args, **kwargs):
-        # ger order id from link
+        # get order id from link
         order_id = kwargs['order']
         # get order object
         queryset = Order.objects.get(pk=order_id)
@@ -309,12 +314,14 @@ class OptimizeRouteAPIView(APIView):
         place_start = order.data['place_start']
         place_end = order.data['place_end']
         dtime = order.data['time']
+
+        # get passenger for this order while they status not Denied and Pending
         psg_list = Passengers.objects.filter(order=order_id).exclude(status="Denied").exclude(status="Pending")
         psg_frame = read_frame(psg_list, fieldnames=['place_pick', 'place_drop'])
         psg_data = psg_frame.values
 
+        # save place_drop and place_pick from each passengers
         psg_place = []
-
         for col in psg_data:
             for plc in col:
                 psg_place.append('via:'+plc)

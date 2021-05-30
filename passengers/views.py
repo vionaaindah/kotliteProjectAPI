@@ -14,7 +14,7 @@ import re
 
 
 class PassengerDetailAPIView(ListAPIView):
-    # class for get Detail Passenger
+    # class for get Detail Passenger by id psg
     permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
@@ -28,7 +28,7 @@ class PassengerDetailAPIView(ListAPIView):
         return Response(serializer.data)
 
 class InvoiceAPIView(ListAPIView):
-    # class for get Detail Passenger
+    # class for get Detail Passenger by id order
     permission_classes = (IsAuthenticated,)
 
     @method_decorator(csrf_exempt)
@@ -43,7 +43,7 @@ class InvoiceAPIView(ListAPIView):
         return Response(serializer.data)
 
 class PassengersPendingListAPIView(ListAPIView):
-    # class for get List Passengers
+    # class for get List Passengers that the status is pending
     serializer_class = PassengersListSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -57,7 +57,7 @@ class PassengersPendingListAPIView(ListAPIView):
 
 
 class PassengersListAPIView(ListAPIView):
-    # class for get List Passengers
+    # class for get List Passengers that the status is not pending and denied
     serializer_class = PassengersListSerializer
     permission_classes = (IsAuthenticated,)
 
@@ -91,8 +91,10 @@ class AcceptedView(APIView):
         if serializer.is_valid():
             passengers = serializer.save()
             order = get_object_or_404(Order, pk=passengers.order.pk)
+            # set the total_psg in order plus 1 when driver accepted psg
             order.total_psg += 1
             order.save()
+            # change status order to full if total_psg and capacity order is same
             if order.total_psg == order.capacity:
                 order.status = 'Full'
                 order.save()
@@ -206,6 +208,7 @@ class DoneView(APIView):
             passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
+            # change status order to Done if all passengers status in that order is Done
             order = get_object_or_404(Order, pk=passengers.order.pk)
             order.income = order.income + passengers.fee 
             order.save()
