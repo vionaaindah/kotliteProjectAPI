@@ -1,4 +1,4 @@
-# Deploy to Google Compute Engine
+# 🖥️ Deploy to Google Compute Engine
 
 You can apply this application to the Google Cloud Platform Compute Engine. Following are the steps for running this application in a Virtual Machine on Compute Engine.
 
