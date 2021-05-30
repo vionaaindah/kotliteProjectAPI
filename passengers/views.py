@@ -22,10 +22,35 @@ class PassengerDetailAPIView(ListAPIView):
         return super(PassengerDetailAPIView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "id": 3,
+            "first_name": "Ferry",
+            "last_name": "Pratama",
+            "lat_pick": "-6.1245877436108690",
+            "long_pick": "106.7823677530232100",
+            "lat_drop": "-6.1277543472448310",
+            "long_drop": "106.7291288443025500",
+            "status": "Pending",
+            "time": "4-06-2021 07:40",
+            "fee": 22000,
+            "distance": 9795,
+            "time_taken": 1015,
+            "order": 10,
+            "phone": "+6281256593824",
+            "place_pick": "Jl. Pluit Karang Permai III No.5,  RT.7/RW.16,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "place_drop": "Jl. Oliander,  RT.2/RW.12,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat"
+        }
+        ```
+        """
         psg = kwargs['pk']
         queryset = Passengers.objects.get(pk=psg)
         serializer = PassengersListSerializer(queryset)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PassengersPendingListAPIView(ListAPIView):
     # class for get List Passengers that the status is pending
@@ -67,6 +92,16 @@ class AcceptedView(APIView):
         return super(AcceptedView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Accepted"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Accepted'
@@ -83,7 +118,7 @@ class AcceptedView(APIView):
             if order.total_psg == order.capacity:
                 order.status = 'Full'
                 order.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -97,6 +132,16 @@ class DeniedView(APIView):
         return super(DeniedView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Denied"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Denied'
@@ -105,7 +150,7 @@ class DeniedView(APIView):
             passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -119,6 +164,16 @@ class ArrivedView(APIView):
         return super(ArrivedView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Arrived"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Arrived'
@@ -127,7 +182,7 @@ class ArrivedView(APIView):
             passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -141,6 +196,16 @@ class StartRideView(APIView):
         return super(StartRideView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Start Ride"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Start Ride'
@@ -149,7 +214,7 @@ class StartRideView(APIView):
             passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -163,6 +228,16 @@ class CompleteRideView(APIView):
         return super(CompleteRideView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+        
+        The response always by `json`
+        ```json
+        {
+            "status": "Complete Ride"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Complete Ride'
@@ -171,7 +246,7 @@ class CompleteRideView(APIView):
             passengers, data=data, partial=True)
         if serializer.is_valid():
             passengers = serializer.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -185,6 +260,16 @@ class DoneView(APIView):
         return super(DoneView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Done"
+        }
+        ```
+        """
         passengers = get_object_or_404(Passengers, pk=kwargs['id'])
         data = {
             'status': 'Done'
@@ -202,7 +287,7 @@ class DoneView(APIView):
             if order.total_psg == total_done:
                 order.status = 'Done'
                 order.save()
-            return Response(StatusUpdateSerializer(passengers).data)
+            return Response(StatusUpdateSerializer(passengers).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # ====================== END CHANGE PASSENGERS STATUS ==================================
@@ -217,6 +302,31 @@ class PassengerCreateAPIView(APIView):
         return super(PassengerCreateAPIView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "id": 3,
+            "lat_pick": "-6.1245877436108690",
+            "long_pick": "106.7823677530232100",
+            "lat_drop": "-6.1277543472448310",
+            "long_drop": "106.7291288443025500",
+            "place_pick": "Jl. Pluit Karang Permai III No.5,  RT.7/RW.16,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "place_drop": "Jl. Oliander,  RT.2/RW.12,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+            "status": "Pending",
+            "time": "4-06-2021 07:40",
+            "fee": 22000,
+            "distance": 9795,
+            "time_taken": 1015,
+            "created_at": "2021-05-30T17:54:51.065442+07:00",
+            "updated_at": "2021-05-30T17:54:51.065477+07:00",
+            "user": 9,
+            "order": 10
+        }
+        ```
+        """
         orders = kwargs['order']
         psg = {
             'user': request.data['user_id'],
