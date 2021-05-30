@@ -39,6 +39,21 @@ class UserDetail(ListAPIView):
         return super(UserDetail, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, format=None):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "id": 6,
+            "username": "bisma",
+            "email": "a0040278@bangkit.academy",
+            "first_name": "Bisma",
+            "last_name": "Satria Nugraha",
+            "phone": "+6285932992222"
+        }
+        ```
+        """
         id =request.user.pk
         queryset = User.objects.get(pk=id)
         serializer = UserSerializer(queryset)
