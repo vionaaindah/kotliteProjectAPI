@@ -92,14 +92,73 @@ Following the step how to create a [new database by using the Cloud Console](htt
 
 | Field | Value | Additional Information  |
 | :---:   | :-: | :-: |
-| Name| [Costum-Name] | will be used in the next step |
+| Name| [Costum-Name] | costum network name |
 | Network | [Your-External IP] | replacing with the Exernal IP address of your VMs|
 
-![image](https://drive.google.com/uc?export=view&id=bc1q7uwxdh8vl274394s2j9r5x5urxw2lmk5jrflpq)
 
-## 📌Configuring the database settings
+## 📌Set up the application on VM Instances
 
-Open **`kotliteProjectAPI/settings.py`** for editing.
+**1. Click SSH**
+
+**2.Go to SuperUser or root folder**
+
+```bass
+sudo su
+```
+
+**3. Set Up Python environment, including Python, `pip`, and `virtualenv`**
+
+```bass
+sudo apt-get update
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+```
+
+**4. Clone project from repository github**
+
+```bass
+git clone https://github.com/SVeeIS/kotliteProjectAPI.git
+```
+
+**5. Go to directory project**
+
+```bass
+cd kotliteProjectAPI
+```
+
+**6. Create an isolated Python environment, and install django**
+
+```bass
+virtualenv env -p python3
+source env/bin/activate
+pip install django
+```
+
+**7. install dependencie and tensorflow**
+
+Open **`requirements.txt`** for editing.
+
+```bass
+sudo vim requirements.txt
+```
+
+comment on **`tensorflow==2.5.0`** and **`tensorflow-estimator==2.5.0`**
+
+```bass
+pip install --no-cache-dir tensorflow
+pip install -r requirements.txt
+```
+
+**8. Configuring **`settings.py`****
+
+
+- Open **`kotliteProjectAPI/settings.py`** for editing.
+
+```bass
+sudo vim kotliteProjectAPI/settings.py
+```
+
+<b>Note : </b> To **`editing file`**  type **`i`** and to **`save file`** type **`:wq`**
 
 Uncomment this section of the file **`settings.py`**
 
@@ -111,39 +170,19 @@ Uncomment this section of the file **`settings.py`**
 
 
 # [START db_setup]
-# if os.getenv('GAE_APPLICATION', None):
-#     # Running on production App Engine, so connect to Google Cloud SQL using
-#     # the unix socket at /cloudsql/<your-cloudsql-connection string>
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
-#             'USER': '[YOUR-USERNAME]',
-#             'PASSWORD': '[YOUR-PASSWORD]',
-#             'NAME': '[YOUR-DATABASE]',
-#         }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': '[YOUR-PUBLIC-IP-SQL-INSTANCE]',
+#         'USER': '[YOUR-USERNAME]',
+#         'PASSWORD': '[YOUR-PASSWORD]',
+#         'NAME': '[YOUR-DATABASE]',
 #     }
-# else:
-#     # Running locally so connect to either a local MySQL instance or connect to
-#     # Cloud SQL via the proxy. To start the proxy via command line:
-#     #
-#     #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-#     #
-#     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'HOST': '127.0.0.1',
-#             'PORT': '3306',
-#             'NAME': '[YOUR-DATABASE]',
-#             'USER': '[YOUR-USERNAME]',
-#             'PASSWORD': '[YOUR-PASSWORD]',
-#         }
-#     }
+# }
 # [END db_setup]
 ```
 
-**to be like this**
+**become the example below⬇️**
 
 ```python
 # UNCOMMENT THIS CODE FOR SETUP IN GCP
@@ -153,69 +192,33 @@ pymysql.install_as_MySQLdb()
 
 
 # [START db_setup]
-if os.getenv('GAE_APPLICATION', None):
-    # Running on production App Engine, so connect to Google Cloud SQL using
-    # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/[YOUR-CONNECTION-NAME]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-            'NAME': '[YOUR-DATABASE]',
-        }
-    }
-else:
-    # Running locally so connect to either a local MySQL instance or connect to
-    # Cloud SQL via the proxy. To start the proxy via command line:
-    #
-    #     $ cloud_sql_proxy -instances=[INSTANCE_CONNECTION_NAME]=tcp:3306
-    #
-    # See https://cloud.google.com/sql/docs/mysql-connect-proxy
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': '[YOUR-DATABASE]',
-            'USER': '[YOUR-USERNAME]',
-            'PASSWORD': '[YOUR-PASSWORD]',
-        }
-    }
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'HOST': '[YOUR-PUBLIC-IP-SQL-INSTANCE]',
+         'USER': '[YOUR-USERNAME]',
+         'PASSWORD': '[YOUR-PASSWORD]',
+         'NAME': '[YOUR-DATABASE]',
+     }
+ }
 # [END db_setup]
 ```
 
-Set up **[YOUR-CONNECTION-NAME], [YOUR-DATABASE], [YOUR-USERNAME], dan [YOUR-PASSWORD]** with the value that you set up in the previous step.
-
 Save **`settings.py`**
 
-## 📌Configuring maps environment
 
-Open file `maps_env.py` in root folder, and change `[YOUR API KEY]` with your API Key
+**8. Configuring **`maps_env.py`****
 
-## 📌Run the application on the Local computer
+- Open **`maps_env.py`** for editing.
 
-**1. Set Up [Python environment](https://cloud.google.com/python/docs/setup),  including Python, `pip`, and `virtualenv`**
-
-**2. Create an isolated Python environment, and install dependencies**
-
-- Linux/macOS
-
-```bash
-virtualenv env
-source env/bin/activate
-pip install -r requirements.txt
+```bass
+sudo vim maps_env.py
 ```
+change `[YOUR API KEY]` with your Maps API Key
 
-- Windows
+Save **`maps_env.py`**
 
-```bash
-python -m venv env
-env\scripts\activate
-pip install -r requirements.txt
-```
-
-**3. Run the Django migrations to set up your models**
+**9. Run the Django migrations to set up your models**
 
 ```bash
 python manage.py makemigrations
@@ -225,62 +228,20 @@ python manage.py makemigrations users
 python manage.py migrate
 ```
 
-**4. Start a local web server**
-
-```bash
-python manage.py runserver
-```
-
-**5. In your browser, go to <http://localhost:8000/>**
-
-**6. Press `Control+C` to stop the local web server**
-
-## 📌Using the Django admin console
-
-**1. Create a superuser. You need to define a username and password**
+**10. Create a superuser. You need to define a username and password**
 
 ```bash
 python manage.py createsuperuser
 ```
 
-**2. Start a local web server**
+**11. Create a screen and run the application**
+
+- use screen so the application can always run in the background
 
 ```bash
-python manage.py runserver
+screen
+source env/bin/activate
+python manage.py runserver 0.0.0.0:8000
 ```
 
-**3 In your browser, go to <http://localhost:8000/admin> and log in to the admin site using the username and password you used when you ran createsuperuser**
-
-## 📌Deploying the app to the App Engine standard environment
-
-**1. Install gunicorn**
-
-```bash
-pip install gunicorn
-```
-
-**2. Gather all the static content into one folder by moving all of the app's static files into the folder specified by `STATIC_ROOT` in `settings.py`**
-
-```bash
-python manage.py collectstatic
-```
-
-**3. Upload the app by running the following command**
-
-```bash
-gcloud app deploy
-```
-
-### 🔗Run the application
-
-- Run the application by running the following command
-
-```bash
-gcloud app browse
-```
-
-Run : If the browser doesn't open, click the link that comes out of the Cloud SDK
-
-- via the Cloud Console
-
-Click the application link in [AppEngine](https://console.cloud.google.com/appengine)
+<b>Note:</b> use **`screen -r`** to enter screen already exist and **`ctrl+a d`** to exit from screen
