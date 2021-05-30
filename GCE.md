@@ -20,25 +20,22 @@ If you're new to Google Cloud, you can [create an account](https://console.cloud
 
 [Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=compute) then select the project used.
 
-## 📌 Set up Firewall
-
-Crate Firewall Rule (https://cloud.google.com/vpc/docs/using-firewalls)
-
 
 ## 📌Set up Compute Engine
 
-**1. Create Virtual Machine (VM) Instance
+**1. Create Virtual Machine (VM) Instance**
 
 Following the step how to create a [virtual machine (VM) instance](https://cloud.google.com/compute/docs/instances/create-start-instance)
 
+You can also be following settings like this⬇️
+
+![image](https://drive.google.com/uc?export=view&id=1SUlHvpseOwX9uDCBj3AG6niYGQVF2CCt)
 
 **2. Crate Firewall Rule**
 
 Following the step how to create [firewall rule](https://cloud.google.com/vpc/docs/using-firewalls)
 
-![image](https://drive.google.com/uc?export=view&id=1SUlHvpseOwX9uDCBj3AG6niYGQVF2CCt)
-
-Note : add this in some specific field ⬇️⬇️⬇️
+<b>Note</b> : add this in some specific field ⬇️
 
 | Field | Value | Additional Information  |
 | :---:   | :-: | :-: |
@@ -47,17 +44,22 @@ Note : add this in some specific field ⬇️⬇️⬇️
 | Tcp | 8000 | firewall rule that allows all incoming traffic on tcp:8000 |
 
 
-**2. Edit Network tags of VMs**
+**3. Edit Network tags of VMs**
+
+- First click 'Edit' in vms
+- Add the tag that you created before in the network tags field (don't forget add http-server and https-server)
+
+![image](https://drive.google.com/uc?export=view&id=1MKCBXd0MrZkwjk-itcelX9_LOcC5abu6)
+
+**4. Change Type External IP**
+
+- In the navigation menu click 'VPC Network'
+- and then click 'External IP addresses'
+- Change Type External IP to static, like the example below⬇️
+
+![image](https://drive.google.com/uc?export=view&id=1Jk5pGgdZ2uRzgAtt7RGHda7ZSj_aW-DK)
 
 
-
-
-
-masukkin tag
-setup external ip menjadi static
-autr sql
-masukkijn extenral sql
-databse user
 
 setup vm
 ssh
@@ -67,52 +69,33 @@ ssh
 cd kotliteProjectAPI
 ```
 
-## 📌Set up the local environment
+## 📌Set up SQL
 
-### 🔗Installing the Cloud SQL Proxy
+**1. Creating a Cloud SQL instance
 
-Follow the Cloud SQL Proxy installation steps according to the ones provided [here](https://cloud.google.com/sql/docs/mysql/quickstart-proxy-test#install-proxy)
-
-### 🔗Creating a Cloud SQL instance
-
-**1. [Create a Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)**
+Following the step how to create a [Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)**
 
 
-**2. Use the Cloud SDK to run the following command where [YOUR_INSTANCE_NAME] represents the name of your Cloud SQL instance:**
+**2. Create a Cloud SQL User**
+
+Following the step how to create a [new user by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-users#creating) for your Cloud SQL instance
+
+**3. Create a Cloud SQL Database**
+
+Following the step how to create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
 
 
-```bash
-gcloud sql instances describe [YOUR_INSTANCE_NAME]
-```
+**3. Create a network path for connecting to SQL instance**
 
-In the output, note the value shown for [CONNECTION_NAME].
-The [CONNECTION_NAME] value is in the format [PROJECT_NAME]:[REGION_NAME]:[INSTANCE_NAME]
+- first click 'Connection' in sql
+- And then click 'Add Network' on 'Authorized networks'
 
-### 🔗Inisiasi Cloud SQL instance
+| Field | Value | Additional Information  |
+| :---:   | :-: | :-: |
+| Name| [Costum-Name] | will be used in the next step |
+| Network | [Your-External IP] | replacing with the Exernal IP address of your VMs|
 
-**1. Start Cloud SQL Proxy**
-
-Start the Cloud SQL Proxy by using the **[CONNECTION_NAME]** value from the previous step.
-
-Note : For Windows, make sure the location of the downloaded file is in the root of the application directory.
-
-- Linux/macOS
-
-```bash
-./cloud_sql_proxy -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
-```
-
-- Windows
-
-```bash
-cloud_sql_proxy.exe -instances="[YOUR_INSTANCE_CONNECTION_NAME]"=tcp:3306
-```
-
-**2. Create a Cloud SQL user and database**
-
-Create a [new user by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-users#creating) for your Cloud SQL instance
-
-Create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
+![image](https://drive.google.com/uc?export=view&id=bc1q7uwxdh8vl274394s2j9r5x5urxw2lmk5jrflpq)
 
 ## 📌Configuring the database settings
 
