@@ -195,11 +195,6 @@ class RecommendationListAPIView(ListAPIView):
     def dispatch(self, request, *args, **kwargs):
         return super(RecommendationListAPIView, self).dispatch(request, *args, **kwargs)
 
-    def get_queryset(self):
-        id = self.request.user.pk
-        psg = Passengers.objects.filter(user=id).last()
-        return Order.objects.filter(time=psg.time)
-
     def post(self, request, format=None):
         """
         ### Response
