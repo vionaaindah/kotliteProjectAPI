@@ -60,15 +60,6 @@ Following the step how to create [firewall rule](https://cloud.google.com/vpc/do
 ![image](https://drive.google.com/uc?export=view&id=1Jk5pGgdZ2uRzgAtt7RGHda7ZSj_aW-DK)
 
 
-
-setup vm
-ssh
-
-
-```bash
-cd kotliteProjectAPI
-```
-
 ## 📌Set up SQL
 
 **1. Creating a Cloud SQL instance
