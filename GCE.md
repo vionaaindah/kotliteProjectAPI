@@ -1,6 +1,6 @@
 # Deploy to Google Compute Engine
 
-You can apply this application to the Google Cloud Platform App Engine. Following are the steps for running this application in a standard App Engine environment.
+You can apply this application to the Google Cloud Platform Compute Engine. Following are the steps for running this application in a Virtual Machine on Compute Engine.
 
 ## 📌Set up Google Cloud Platform
 
@@ -16,30 +16,52 @@ If you're new to Google Cloud, you can [create an account](https://console.cloud
 
 [learn how to confirm that billing is enabled for your project](https://cloud.google.com/billing/docs/how-to/modify-project)
 
-**4. Enable the Cloud SQL Admin API**
+**4. Enable the Compute Engine API**
 
-[Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=sqladmin.googleapis.com) then select the project used.
+[Enable the API](https://console.cloud.google.com/flows/enableapi?apiid=compute) then select the project used.
 
-**5. [Install and initialize the Cloud SDK](https://cloud.google.com/sdk/docs/install)**
+## 📌 Set up Firewall
 
-Follow the installation instructions according to your operating system used.
+Crate Firewall Rule (https://cloud.google.com/vpc/docs/using-firewalls)
 
-### 🔗Login ke gcloud
 
-Acquire new credentials to use the Cloud SQL Admin API:
-```bash
-gcloud auth application-default login
-```
+## 📌Set up Compute Engine
 
-## 📌Downloading and running the app
+**1. Create Virtual Machine (VM) Instance
 
-**1. Cloning the repository to local computer**
+Following the step how to create a [virtual machine (VM) instance](https://cloud.google.com/compute/docs/instances/create-start-instance)
 
-```bash
-git clone https://github.com/SVeeIS/kotliteProjectAPI.git
-```
 
-**2. Open directory**
+**2. Crate Firewall Rule**
+
+Following the step how to create [firewall rule](https://cloud.google.com/vpc/docs/using-firewalls)
+
+![image](https://drive.google.com/uc?export=view&id=1SUlHvpseOwX9uDCBj3AG6niYGQVF2CCt)
+
+Note : add this in some specific field ⬇️⬇️⬇️
+
+| Field | Value | Additional Information  |
+| :---:   | :-: | :-: |
+| Target tags | [Your-Tag] | will be used in the next step |
+| Source IP ranges | [Your-External IP] | replacing with the Exernal IP address of your VMs|
+| Tcp | 8000 | firewall rule that allows all incoming traffic on tcp:8000 |
+
+
+**2. Edit Network tags of VMs**
+
+
+
+
+
+masukkin tag
+setup external ip menjadi static
+autr sql
+masukkijn extenral sql
+databse user
+
+setup vm
+ssh
+
 
 ```bash
 cd kotliteProjectAPI
