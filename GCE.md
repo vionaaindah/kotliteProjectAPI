@@ -51,7 +51,7 @@ Following the step how to create [firewall rule](https://cloud.google.com/vpc/do
 
 ![image](https://drive.google.com/uc?export=view&id=1MKCBXd0MrZkwjk-itcelX9_LOcC5abu6)
 
-**4. Change Type External IP**
+**4. Change External IP Type**
 
 - In the navigation menu click 'VPC Network'
 - and then click 'External IP addresses'
