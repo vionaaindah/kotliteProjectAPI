@@ -27,6 +27,31 @@ class OrderCreateAPIView(CreateAPIView):
         return super(OrderCreateAPIView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, format=None):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "id": 7,
+            "lat_start": "-6.1082283371175940",
+            "long_start": "106.7789264530163400",
+            "lat_end": "-6.1699315209059070",
+            "long_end": "106.7311675982933800",
+            "place_start": "Jl. Pluit Karang Ayu Barat No.B1,  RT.20/RW.2,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "place_end": "Jl. Madrasah Blok Toraja No.71A,  RT.14/RW.4,  Rw. Buaya,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+            "total_psg": 0,
+            "status": "Finding",
+            "time": "4-06-2021 07:45",
+            "capacity": 2,
+            "car_type": "Nissan Juke",
+            "income": 0,
+            "created_at": "2021-05-30T17:26:40.252083+07:00",
+            "updated_at": "2021-05-30T17:26:40.252129+07:00",
+            "user": 7
+        }
+        ```
+        """
         start_point = [request.data['lat_start'], request.data['long_start']]
         end_point = [request.data['lat_end'], request.data['long_end']]
 
@@ -129,6 +154,32 @@ class DriverDetailAPIView(ListAPIView):
         return super(DriverDetailAPIView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "id": 10,
+            "first_name": "Bisma",
+            "last_name": "Satria Nugraha",
+            "lat_start": "-6.1219085060080950",
+            "long_start": "106.7853479434829200",
+            "lat_end": "-6.1452914868872925",
+            "long_end": "106.7290430129852900",
+            "status": "Done",
+            "time": "4-06-2021 07:40",
+            "total_psg": 2,
+            "capacity": 2,
+            "car_type": "Suzuki Swift",
+            "income": 34200,
+            "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "place_end": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+            "user": 6,
+            "phone": "+6285932992222"
+        }
+        ```
+        """
         psg = kwargs['pk']
         queryset = Order.objects.get(pk=psg)
         serializer = DriversListSerializer(queryset)
@@ -151,13 +202,68 @@ class RecommendationListAPIView(ListAPIView):
 
     def post(self, request, format=None):
         """
-        request = {
-            'lat_pick': lat,
-            'long_pick': long,
-            'lat_drop': lat,
-            'long_drop': long,
-            'time': '25-06-2021 15:45',
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "psg_data": {
+                "user": 9,
+                "lat_pick": -6.124587743610869,
+                "long_pick": 106.78236775302321,
+                "place_pick": "Jl. Pluit Karang Permai III No.5,  RT.7/RW.16,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+                "lat_drop": -6.127754347244831,
+                "long_drop": 106.72912884430255,
+                "place_drop": "Jl. Oliander,  RT.2/RW.12,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+                "distance": 9795,
+                "time_taken": 1015,
+                "maximum_fee": 22000,
+                "minimum_fee": 17600.0,
+                "time": "4-06-2021 07:40",
+                "status": "Pending"
+            },
+            "recommendations": [
+                {
+                    "id": 9,
+                    "first_name": "Hamonangan",
+                    "last_name": "Sitorus",
+                    "lat_start": "-6.1215021240503580",
+                    "long_start": "106.7943489389425800",
+                    "lat_end": "-6.1818442245510650",
+                    "long_end": "106.7288255993721000",
+                    "status": "Finding",
+                    "time": "4-06-2021 07:40",
+                    "total_psg": 0,
+                    "capacity": 4,
+                    "car_type": "Suzuki Swift",
+                    "income": 0,
+                    "place_start": "2,  Jl. Pluit Tim. Raya No.20,  RT.7/RW.9,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+                    "place_end": "Jl. Lkr. Luar Barat No.55,  RT.2/RW.1,  Kembangan Sel.,  Kec. Kembangan,  Kota Jakarta Barat",
+                    "user": 8,
+                    "phone": "+6281260891439"
+                },
+                {
+                    "id": 10,
+                    "first_name": "Bisma",
+                    "last_name": "Satria Nugraha",
+                    "lat_start": "-6.1219085060080950",
+                    "long_start": "106.7853479434829200",
+                    "lat_end": "-6.1452914868872925",
+                    "long_end": "106.7290430129852900",
+                    "status": "Finding",
+                    "time": "4-06-2021 07:40",
+                    "total_psg": 0,
+                    "capacity": 4,
+                    "car_type": "Suzuki Swift",
+                    "income": 0,
+                    "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+                    "place_end": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+                    "user": 6,
+                    "phone": "+6285932992222"
+                }
+            ]
         }
+        ```
         """
         query = [
             [float(request.data['lat_pick']), float(request.data['long_pick'])],
@@ -281,6 +387,16 @@ class RidingView(APIView):
         return super(RidingView, self).dispatch(request, *args, **kwargs)
 
     def patch(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        {
+            "status": "Riding"
+        }
+        ```
+        """
         order = get_object_or_404(Order, pk=kwargs['id'])
         data = {
             'status': 'Riding'
@@ -298,7 +414,7 @@ class RidingView(APIView):
                 elif driver.total_psg > 2:
                     item.fee = item.fee - (item.fee * 0.2)
                 item.save()
-            return Response(StatusUpdateSerializer(order).data)
+            return Response(StatusUpdateSerializer(order).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OptimizeRouteAPIView(APIView):
@@ -306,6 +422,145 @@ class OptimizeRouteAPIView(APIView):
     serializer_class = OrderSerializer
 
     def get(self, request, *args, **kwargs):
+        """
+        ### Response
+
+        The response always by `json`
+        ```json
+        [
+            {
+                "bounds": {
+                    "northeast": {
+                        "lat": -6.1157151,
+                        "lng": 106.7875767
+                    },
+                    "southwest": {
+                        "lat": -6.153827199999999,
+                        "lng": 106.7271108
+                    }
+                },
+                "copyrights": "Map data ©2021",
+                "legs": [
+                    {
+                        "distance": {
+                            "text": "33,3 km",
+                            "value": 33306
+                        },
+                        "duration": {
+                            "text": "1 jam 8 menit",
+                            "value": 4060
+                        },
+                        "duration_in_traffic": {
+                            "text": "1 jam 9 menit",
+                            "value": 4126
+                        },
+                        "end_address": "Jl. Kamal Raya No.56, RT.2/RW.8, Cengkareng Bar., Kecamatan Cengkareng, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11730, Indonesia",
+                        "end_location": {
+                            "lat": -6.1322458,
+                            "lng": 106.7288118
+                        },
+                        "start_address": "Jl. Pluit Sakti II No.3, RT.15/RW.7, Pluit, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14450, Indonesia",
+                        "start_location": {
+                            "lat": -6.1216574,
+                            "lng": 106.7853313
+                        },
+                        "steps": [
+                            {
+                                "distance": {
+                                    "text": "0,2 km",
+                                    "value": 248
+                                },
+                                "duration": {
+                                    "text": "1 menit",
+                                    "value": 64
+                                },
+                                "end_location": {
+                                    "lat": -6.1216523,
+                                    "lng": 106.7875767
+                                },
+                                "html_instructions": "Ambil arah <b>timur</b> di <b>Jl. Pluit Sakti II</b> menuju <b>Taman Sakti</b>",
+                                "polyline": {
+                                    "points": "jsjd@iowjS?WAoD?yF"
+                                },
+                                "start_location": {
+                                    "lat": -6.1216574,
+                                    "lng": 106.7853313
+                                },
+                                "travel_mode": "DRIVING"
+                            },
+                            {
+                                "distance": {
+                                    "text": "73 m",
+                                    "value": 73
+                                },
+                                "duration": {
+                                    "text": "1 menit",
+                                    "value": 19
+                                },
+                                "end_location": {
+                                    "lat": -6.122306399999999,
+                                    "lng": 106.7875519
+                                },
+                                "html_instructions": "Belok <b>kanan</b> ke <b>Jl. Pluit Sakti 1</b><div style=\"font-size:0.9em\">Jalan dengan pengunaan terbatas</div>",
+                                "maneuver": "turn-right",
+                                "polyline": {
+                                    "points": "hsjd@k}wjSbCD"
+                                },
+                                "start_location": {
+                                    "lat": -6.1216523,
+                                    "lng": 106.7875767
+                                },
+                                "travel_mode": "DRIVING"
+                            },
+                            ...
+                        ],
+                        "traffic_speed_entry": [],
+                        "via_waypoint": [
+                            {
+                                "location": {
+                                    "lat": -6.1270231,
+                                    "lng": 106.7806897
+                                },
+                                "step_index": 7,
+                                "step_interpolation": 0.5897440314292908
+                            },
+                            {
+                                "location": {
+                                    "lat": -6.1273389,
+                                    "lng": 106.7287041
+                                },
+                                "step_index": 22,
+                                "step_interpolation": 1
+                            },
+                            {
+                                "location": {
+                                    "lat": -6.1251337,
+                                    "lng": 106.7795577
+                                },
+                                "step_index": 32,
+                                "step_interpolation": 0.5759898030868817
+                            },
+                            {
+                                "location": {
+                                    "lat": -6.1253251,
+                                    "lng": 106.7303065
+                                },
+                                "step_index": 39,
+                                "step_interpolation": 0.3709326737523763
+                            }
+                        ]
+                    }
+                ],
+                "overview_polyline": {
+                    "points": "jsjd@iowjSAgE?yFbCDHfSjEI`H?jADd@@z@eHPBE`@i@nEi@|FZ?`LcAcBtOuAlMgC|A_B~@QHWJu@DSCMKWa@I[?a@^oAh@{AP{@LwA?k@WkAIe@FgArAcM[??DsA~Lw@fIW~EIfAi@lDc@xAY|@K`@]n@UZc@f@gAjA}BbCe@p@_@z@[bAOp@OfBAx@?t@BdADjAC\\J|BFz@h@zJBxBJhAvBva@RpHHfGFpDC~FQ`PMlLE|PIjMUfF[pCe@nCoCrIcFpOm@vBk@~Ag@rBK`@cBpFaAlC?dB^xFRhCHl@V`@x@n@jHnD`CnAbBlAbAd@t@f@jAj@fBh@`Dd@bD`@zALbBDzFElKa@jQIrA@@B@@@@LDJDHP?PENwABa@@C@GHaCF_CFeFF}BF}KTkBABjEbB??~ALVFJN?b@_@DKAwA{B?eA?IeDAe@iDG}DU{FgA}Bw@sBs@cAc@oGuCuC{A{Ay@{@]_AQoACqCHoADw@@s@EeAWe@SUQg@e@GK_@aAKcA@aANw@Xm@n@}@~BeA`Bo@d@Wv@e@`@[p@q@`A}A`AqBf@iAt@mBRYl@iB\\eANc@pAeEhEuMx@kC|@cDf@oC\\cELwETwSJgJBsARyRFeMQsMSmIe@eJcA}QKcAu@_Ec@sBIuAAg@TeDHmAa@_KAkA\\yCZyAV}@h@kAf@y@T]hAmAjCoBtAmAn@cATk@Lq@l@iGh@aGzB{RDm@b@}El@oFPBa@vDUlBWnCIx@P?H?SlB]dDk@pFF\\XrA@d@I|@OnAm@fB_@jAAb@F\\Vd@JHPFh@A`@Kx@a@K]@M`E}_@sFb@WlBiAhLq@tHG~@MpC_@tCg@lBo@tBg@z@m@t@iAlA}BbC{@zAQb@c@bBQdC?`@H`EC\\Dh@J|BXhFRtE@fADPPvCvAfX\\zINtHLlJOfPQxNGtGAvHGxKIzF[rE_@fCi@rBg@zAyDnLaDfKc@lA_@lA_@`BeAlDqAxDQb@?TAn@\\xEPrCHpAN`@j@l@rE~BxCxAzAx@rA`Av@d@ZJRPtAr@dBl@bCb@lC\\hD\\|FDdDIhI]vNGfD?fB?hMFlGBdDHfDB~BLh@DzIbAtG~@jFt@jM~AhIhBjBX`BPjE^pBH\\Ev@ItJS`DH`@n@Ab@I`@SVSP_@@wBBgCBuAAmBIkAIuAQaHs@wKuBiLmB{AQkAEwBKuEi@iIqA}Fe@wBKaCC}QUwA@}CMSA_ACMVwCxCw@v@"
+                },
+                "summary": "Jl. Lkr. Luar Barat",
+                "warnings": [],
+                "waypoint_order": []
+            }
+        ]
+        ```
+        """
         # get order id from link
         order_id = kwargs['order']
         # get order object
@@ -334,3 +589,5 @@ class OptimizeRouteAPIView(APIView):
                                             departure_time=time, waypoints=psg_place, optimize_waypoints=True)
         
         return Response(data=optimize_route, status=status.HTTP_200_OK)
+
+        
