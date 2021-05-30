@@ -4,7 +4,6 @@ from passengers.views import *
 urlpatterns = [
     path('createpsg/<int:order>/', PassengerCreateAPIView.as_view(), name='passengers_create'),
     path('detail/<int:pk>/', PassengerDetailAPIView.as_view(), name='passengers_detail'),
-    path('invoice/<int:pk>/', InvoiceAPIView.as_view(), name='passengers_invoice'),
     path('list/<int:order>/', PassengersListAPIView.as_view(), name='passengers_list'),
     path('pendinglist/<int:order>/', PassengersPendingListAPIView.as_view(), name='passengers_list'),
     path('accepted/<int:id>/', AcceptedView.as_view(), name='passangers_status_accepted'),

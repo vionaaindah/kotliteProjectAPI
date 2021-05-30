@@ -27,21 +27,6 @@ class PassengerDetailAPIView(ListAPIView):
         serializer = PassengersListSerializer(queryset)
         return Response(serializer.data)
 
-class InvoiceAPIView(ListAPIView):
-    # class for get Detail Passenger by id order
-    permission_classes = (IsAuthenticated,)
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(InvoiceAPIView, self).dispatch(request, *args, **kwargs)
-
-    def get(self, request, format=None, *args, **kwargs):
-        psg = request.user.id
-        order = kwargs['pk']
-        queryset = Passengers.objects.get(user=psg, order=order)
-        serializer = PassengersListSerializer(queryset)
-        return Response(serializer.data)
-
 class PassengersPendingListAPIView(ListAPIView):
     # class for get List Passengers that the status is pending
     serializer_class = PassengersListSerializer
