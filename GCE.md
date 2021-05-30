@@ -91,10 +91,11 @@ Following the step how to create a [new database by using the Cloud Console](htt
 
 **1. Click SSH**
 
-**2.Go to SuperUser or root folder**
+**2.Login as SuperUser and go to /home folder**
 
 ```bass
 sudo su
+cd ..
 ```
 
 **3. Set Up Python environment, including Python, `pip`, and `virtualenv`**
