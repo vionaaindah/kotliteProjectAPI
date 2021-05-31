@@ -76,7 +76,7 @@ Following the step how to create a [new user by using the Cloud Console](https:/
 Following the step how to create a [new database by using the Cloud Console](https://cloud.google.com/sql/docs/mysql/create-manage-databases#create) for your Cloud SQL instance
 
 
-**3. Create a network path for connecting to SQL instance**
+**4. Create a network path for connecting to SQL instance**
 
 - first click 'Connection' in sql
 - And then click 'Add Network' on 'Authorized networks'
