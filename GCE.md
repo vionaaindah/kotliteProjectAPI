@@ -62,7 +62,7 @@ Following the step how to create [firewall rule](https://cloud.google.com/vpc/do
 
 ## 📌Set up SQL
 
-**1. Creating a Cloud SQL instance
+**1. Creating a Cloud SQL instance**
 
 Following the step how to create a [Cloud SQL for MySQL Second Generation instance](https://cloud.google.com/sql/docs/mysql/create-instance)**
 
@@ -199,7 +199,7 @@ DATABASES = {
 Save **`settings.py`**
 
 
-**8. Configuring **`maps_env.py`****
+**9. Configuring **`maps_env.py`****
 
 - Open **`maps_env.py`** for editing.
 
@@ -210,7 +210,7 @@ change `[YOUR API KEY]` with your Maps API Key
 
 Save **`maps_env.py`**
 
-**9. Run the Django migrations to set up your models**
+**10. Run the Django migrations to set up your models**
 
 ```bash
 python manage.py makemigrations
@@ -220,13 +220,13 @@ python manage.py makemigrations users
 python manage.py migrate
 ```
 
-**10. Create a superuser. You need to define a username and password**
+**11. Create a superuser. You need to define a username and password**
 
 ```bash
 python manage.py createsuperuser
 ```
 
-**11. Create a screen and run the application**
+**12. Create a screen and run the application**
 
 - use screen so the application can always run in the background
 
