@@ -83,7 +83,7 @@ Following the step how to create a [new database by using the Cloud Console](htt
 
 | Field | Value | Additional Information  |
 | :---:   | :-: | :-: |
-| Name| [Costum-Name] | costum network name |
+| Name| [Network-Name] | custom network name |
 | Network | [Your-External IP] | replacing with the Exernal IP address of your VMs|
 
 
