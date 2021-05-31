@@ -160,23 +160,23 @@ class DriverDetailAPIView(ListAPIView):
         The response always by `json`
         ```json
         {
-            "id": 10,
-            "first_name": "Bisma",
-            "last_name": "Satria Nugraha",
-            "lat_start": "-6.1219085060080950",
-            "long_start": "106.7853479434829200",
-            "lat_end": "-6.1452914868872925",
-            "long_end": "106.7290430129852900",
-            "status": "Done",
-            "time": "4-06-2021 07:40",
-            "total_psg": 2,
-            "capacity": 2,
-            "car_type": "Suzuki Swift",
-            "income": 34200,
+            "id": 7,
+            "user": 7,
+            "first_name": "Ferry",
+            "last_name": "Pratama",
+            "phone": "+6285382697201",
+            "lat_start": "-6.1219085060081000",
+            "long_start": "106.7853479434830000",
             "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "lat_end": "-6.1452914868872900",
+            "long_end": "106.7290430129850000",
             "place_end": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
-            "user": 6,
-            "phone": "+6285932992222"
+            "status": "Done",
+            "time": "04-06-2021 09:00",
+            "total_psg": 1,
+            "capacity": 3,
+            "car_type": "Suzuki Swift",
+            "income": 24000
         }
         ```
         """
@@ -220,41 +220,41 @@ class RecommendationListAPIView(ListAPIView):
             "recommendations": [
                 {
                     "id": 9,
+                    "user": 8,
                     "first_name": "Hamonangan",
                     "last_name": "Sitorus",
+                    "phone": "+6281260891439",
                     "lat_start": "-6.1215021240503580",
                     "long_start": "106.7943489389425800",
+                    "place_start": "2,  Jl. Pluit Tim. Raya No.20,  RT.7/RW.9,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
                     "lat_end": "-6.1818442245510650",
                     "long_end": "106.7288255993721000",
+                    "place_end": "Jl. Lkr. Luar Barat No.55,  RT.2/RW.1,  Kembangan Sel.,  Kec. Kembangan,  Kota Jakarta Barat",
                     "status": "Finding",
                     "time": "4-06-2021 07:40",
                     "total_psg": 0,
                     "capacity": 4,
                     "car_type": "Suzuki Swift",
-                    "income": 0,
-                    "place_start": "2,  Jl. Pluit Tim. Raya No.20,  RT.7/RW.9,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
-                    "place_end": "Jl. Lkr. Luar Barat No.55,  RT.2/RW.1,  Kembangan Sel.,  Kec. Kembangan,  Kota Jakarta Barat",
-                    "user": 8,
-                    "phone": "+6281260891439"
+                    "income": 0
                 },
                 {
                     "id": 10,
+                    "user": 6,
                     "first_name": "Bisma",
                     "last_name": "Satria Nugraha",
+                    "phone": "+6285932992222"
                     "lat_start": "-6.1219085060080950",
                     "long_start": "106.7853479434829200",
+                    "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
                     "lat_end": "-6.1452914868872925",
                     "long_end": "106.7290430129852900",
+                    "place_end": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
                     "status": "Finding",
                     "time": "4-06-2021 07:40",
                     "total_psg": 0,
                     "capacity": 4,
                     "car_type": "Suzuki Swift",
-                    "income": 0,
-                    "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
-                    "place_end": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
-                    "user": 6,
-                    "phone": "+6285932992222"
+                    "income": 0
                 }
             ]
         }

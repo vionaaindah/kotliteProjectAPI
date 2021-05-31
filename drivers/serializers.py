@@ -21,10 +21,10 @@ class DriversListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'first_name', 'last_name', 'lat_start', 
-                'long_start', 'lat_end', 'long_end', 'status',
+        fields = ('id', 'user', 'first_name', 'last_name', 'phone', 
+                'lat_start', 'long_start', 'place_start', 
+                'lat_end', 'long_end', 'place_end', 'status',
                 'time', 'total_psg', 'capacity', 'car_type', 'income',
-                'place_start', 'place_end', 'user', 'phone', 
             )
 
 class StatusUpdateSerializer(serializers.ModelSerializer):

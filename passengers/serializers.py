@@ -12,13 +12,14 @@ class PassengersListSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
     phone = serializers.CharField(source='user.additionals.phone', read_only=True)
-
+    driver_id = serializers.IntegerField(source='order.user.pk', read_only=True)
+    
     class Meta:
         model = Passengers
-        fields = ('id', 'first_name', 'last_name', 'lat_pick', 
-                'long_pick', 'lat_drop', 'long_drop', 'status',
-                'time', 'fee', 'distance', 'time_taken', 'order', 
-                'phone', 'place_pick', 'place_drop',
+        fields = ('id', 'user', 'first_name', 'last_name', 'phone', 
+                'lat_pick', 'long_pick', 'place_pick', 
+                'lat_drop', 'long_drop', 'place_drop','status',
+                'time', 'fee', 'distance', 'time_taken', 'order', 'driver_id',
             )
 
 class StatusUpdateSerializer(serializers.ModelSerializer):

@@ -9,9 +9,6 @@ from rest_framework.views import APIView
 from drivers.models import *
 from rest_framework.permissions import IsAuthenticated
 
-from maps_env import gmaps_init
-import re
-
 
 class PassengerDetailAPIView(ListAPIView):
     # class for get Detail Passenger by id psg
@@ -28,22 +25,24 @@ class PassengerDetailAPIView(ListAPIView):
         The response always by `json`
         ```json
         {
-            "id": 3,
-            "first_name": "Ferry",
-            "last_name": "Pratama",
-            "lat_pick": "-6.1245877436108690",
-            "long_pick": "106.7823677530232100",
-            "lat_drop": "-6.1277543472448310",
-            "long_drop": "106.7291288443025500",
-            "status": "Pending",
-            "time": "4-06-2021 07:40",
-            "fee": 22000,
-            "distance": 9795,
-            "time_taken": 1015,
-            "order": 10,
-            "phone": "+6281256593824",
-            "place_pick": "Jl. Pluit Karang Permai III No.5,  RT.7/RW.16,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
-            "place_drop": "Jl. Oliander,  RT.2/RW.12,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat"
+            "id": 8,
+            "user": 3,
+            "first_name": "Siti Viona Indah",
+            "last_name": "Swari",
+            "phone": "+6285387772231",
+            "lat_pick": "-6.1219085060081000",
+            "long_pick": "106.7853479434830000",
+            "place_pick": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
+            "lat_drop": "-6.1452914868872900",
+            "long_drop": "106.7290430129850000",
+            "place_drop": "Jl. Kamal Raya No.56,  RT.1/RW.8,  Cengkareng Bar.,  Kecamatan Cengkareng,  Kota Jakarta Barat",
+            "status": "Accepted",
+            "time": "04-06-2021 09:10",
+            "fee": 24000,
+            "distance": 10175,
+            "time_taken": 982,
+            "order": 7,
+            "driver_id": 7
         }
         ```
         """
