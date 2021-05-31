@@ -242,7 +242,7 @@ class RecommendationListAPIView(ListAPIView):
                     "user": 6,
                     "first_name": "Bisma",
                     "last_name": "Satria Nugraha",
-                    "phone": "+6285932992222"
+                    "phone": "+6285932992222",
                     "lat_start": "-6.1219085060080950",
                     "long_start": "106.7853479434829200",
                     "place_start": "Jl. Pluit Sakti II No.3,  RT.15/RW.7,  Pluit,  Kec. Penjaringan,  Kota Jkt Utara",
