@@ -97,6 +97,13 @@ python manage.py runserver
 
 In your browser, go to `http://localhost:8000/admin` Log in to the admin site using the username and password you used when you ran createsuperuser.
 
+## 📌Deployment
+
+- If you want to deploy this app on Google App Engine Standard Environment click [here](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
+- If you want to deploy this app on Google Compute Engine click [here](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE.md)
+
+  note: if your total file is more than 10.000 files you can't deploy in Google App Engine Standard Environment
+
 **📌Documentation**
 
 API documentation can be seen here (Coming Soon)
