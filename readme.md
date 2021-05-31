@@ -104,7 +104,7 @@ In your browser, go to `http://localhost:8000/admin` Log in to the admin site us
 
   note: if your total file is more than 10.000 files you can't deploy in Google App Engine Standard Environment
 
-**📌Documentation**
+## 📌Documentation
 
 API documentation can be seen here (Coming Soon)
 stay tuned (・ｗ・）
