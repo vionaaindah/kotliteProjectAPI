@@ -87,11 +87,11 @@ Following the step how to create a [new database by using the Cloud Console](htt
 | Network | [Your-External IP] | replacing with the Exernal IP address of your VMs|
 
 
-## 📌Set up the application on VM Instances
+## 📌Set up the Application on VM Instances
 
 **1. Click SSH**
 
-**2.Login as SuperUser and go to /home folder**
+**2. Login as SuperUser and go to /home folder**
 
 ```bass
 sudo su
