@@ -1,11 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.documentation import include_docs_urls
+from rest_framework.documentation import include_docs_urls, api_settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls), #for admin site
-    path('docs/', include_docs_urls(title='Kotlite Api')), #for documentation site
-    path('users/', include("users.urls")), #for login, refresh token and register site
-    path('drivers/', include("drivers.urls")), #for url in drivers app
-    path('passengers/', include("passengers.urls")), #for url in passengers app
+    path('admin/', admin.site.urls),  # for admin site
+    path('docs/', include_docs_urls(title='Kotlite Api',
+                                    schema_url='https://yourapi.com/')),  # for documentation site
+    # for login, refresh token and register site
+    path('users/', include("users.urls")),
+    path('drivers/', include("drivers.urls")),  # for url in drivers app
+    # for url in passengers app
+    path('passengers/', include("passengers.urls")),
 ]

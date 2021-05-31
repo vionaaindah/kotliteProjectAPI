@@ -17,11 +17,12 @@ import pandas as pd
 import datetime
 import re
 
+
 class OrderCreateAPIView(CreateAPIView):
     # class for create order from diver
     serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
-    
+
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(OrderCreateAPIView, self).dispatch(request, *args, **kwargs)
@@ -60,7 +61,7 @@ class OrderCreateAPIView(CreateAPIView):
 
         gmaps = gmaps_init()
         direction = gmaps.directions(origin=start_point, destination=end_point,
-                                    language='id', departure_time=deptime)
+                                     language='id', departure_time=deptime)
 
         # got the route, start address, and end address
         routes = direction[0]['legs'][0]['steps']
@@ -261,7 +262,8 @@ class RecommendationListAPIView(ListAPIView):
         ```
         """
         query = [
-            [float(request.data['lat_pick']), float(request.data['long_pick'])],
+            [float(request.data['lat_pick']),
+             float(request.data['long_pick'])],
             [float(request.data['lat_drop']), float(request.data['long_drop'])]
         ]
         time = pd.to_datetime(request.data['time'])
@@ -313,9 +315,8 @@ class RecommendationListAPIView(ListAPIView):
             request.data['time'], '%d-%m-%Y %H:%M')
         gmaps = gmaps_init()
         direction = gmaps.directions(origin=start_point, destination=end_point,
-                                    language='id', departure_time=deptime)
+                                     language='id', departure_time=deptime)
 
-        
         # got the distance value, duration value, start address and end address
         distance_value = direction[0]['legs'][0]['distance']['value']
         time_taken = direction[0]['legs'][0]['duration_in_traffic']['value']
@@ -353,7 +354,7 @@ class RecommendationListAPIView(ListAPIView):
                 'place_pick': place_pick,
                 'lat_drop': float(request.data['lat_drop']),
                 'long_drop': float(request.data['long_drop']),
-                'place_drop':place_drop,
+                'place_drop': place_drop,
                 'distance': distance_value,
                 'time_taken': time_taken,
                 'maximum_fee': fee,
@@ -411,6 +412,7 @@ class RidingView(APIView):
                 item.save()
             return Response(StatusUpdateSerializer(order).data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class OptimizeRouteAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -507,7 +509,6 @@ class OptimizeRouteAPIView(APIView):
                                 },
                                 "travel_mode": "DRIVING"
                             },
-                            ...
                         ],
                         "traffic_speed_entry": [],
                         "via_waypoint": [
@@ -526,22 +527,6 @@ class OptimizeRouteAPIView(APIView):
                                 },
                                 "step_index": 22,
                                 "step_interpolation": 1
-                            },
-                            {
-                                "location": {
-                                    "lat": -6.1251337,
-                                    "lng": 106.7795577
-                                },
-                                "step_index": 32,
-                                "step_interpolation": 0.5759898030868817
-                            },
-                            {
-                                "location": {
-                                    "lat": -6.1253251,
-                                    "lng": 106.7303065
-                                },
-                                "step_index": 39,
-                                "step_interpolation": 0.3709326737523763
                             }
                         ]
                     }
@@ -566,8 +551,10 @@ class OptimizeRouteAPIView(APIView):
         dtime = order.data['time']
 
         # get passenger for this order while they status not Denied and Pending
-        psg_list = Passengers.objects.filter(order=order_id).exclude(status="Denied").exclude(status="Pending")
-        psg_frame = read_frame(psg_list, fieldnames=['place_pick', 'place_drop'])
+        psg_list = Passengers.objects.filter(order=order_id).exclude(
+            status="Denied").exclude(status="Pending")
+        psg_frame = read_frame(psg_list, fieldnames=[
+                               'place_pick', 'place_drop'])
         psg_data = psg_frame.values
 
         # save place_drop and place_pick from each passengers
@@ -580,9 +567,7 @@ class OptimizeRouteAPIView(APIView):
         time = datetime.datetime.strptime(
             dtime, '%d-%m-%Y %H:%M')
 
-        optimize_route = gmaps.directions(origin=place_start, destination=place_end, language='id', 
-                                            departure_time=time, waypoints=psg_place, optimize_waypoints=True)
-        
-        return Response(data=optimize_route, status=status.HTTP_200_OK)
+        optimize_route = gmaps.directions(origin=place_start, destination=place_end, language='id',
+                                          departure_time=time, waypoints=psg_place, optimize_waypoints=True)
 
-        
+        return Response(data=optimize_route, status=status.HTTP_200_OK)
