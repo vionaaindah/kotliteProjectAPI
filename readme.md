@@ -205,7 +205,7 @@ Deployment REST API to Google Cloud Platform so that it can be accessed by andro
 
 1. Deployment using Google [Compute Engine](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE.md)
 2. Deployment using Google [Compute Engine with port 8000](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE%20with%20port%208000.md)
-3. Deployment with Google [App Engine Standard](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
+3. Deployment using Google [App Engine Standard](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
 
 ## Contributing
 
