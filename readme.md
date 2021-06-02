@@ -187,7 +187,7 @@ This project requires several resources to be prepared and installed on the loca
    python manage.py runserver
    ```
 
-   Now, your local webserver is running in `http://localhost:8000/`. You can also open the Django admin site in `http://localhost:8000/admin` and log in using the superuser account.
+   Now, your local webserver is running in `http://localhost:8000/`. You can also open the Django admin site in `http://localhost:8000/kotliteadm` and log in using the superuser account.
 
 <!-- USAGE EXAMPLES -->
 
