@@ -237,10 +237,3 @@ python manage.py runserver 0.0.0.0:8000
 ```
 
 <b>Note:</b> use **`screen -r`** to enter screen already exist and **`ctrl+a d`** to exit from screen
-
-
-## 📌Set up a domain the Application using Cloud DNS
-
-Following the step how to [setting up a domain using Cloud DNS](https://cloud.google.com/dns/docs/tutorials/create-domain-tutorial)
-
-<b>Note:</b> This is optional but custom DNS can make your application link to be attractive, for example **`[EXTERNAL_IP]`** become **`example.com`**
