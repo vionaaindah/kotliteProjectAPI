@@ -203,7 +203,7 @@ _For more usage, please refer to the [Documentation](https://example.com)_.
 
 Deployment REST API to Google Cloud Platform so that it can be accessed by android apps. We deploy using compute engine, but we also have various options how to deployment
 
-1. Deployment using Google [Compute Engine](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE.md)
+1. Deployment using Google [Compute Engine](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE.md) (Main option)
 2. Deployment using Google [Compute Engine with port 8000](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE%20with%20port%208000.md)
 3. Deployment using Google [App Engine Standard](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
 
