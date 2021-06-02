@@ -195,7 +195,7 @@ This project requires several resources to be prepared and installed on the loca
 
 Our Rest API is the way for computer systems to communicate over HTTP in a similar way to web browsers and servers. We share databases between systems to enable our application, working effectively for our users.
 
-_For more usage, please refer to the [Documentation](https://example.com)_.
+_For more usage, please refer to the [Documentation](http://kotlite.xyz/docs/)_.
 
 <!-- CONTRIBUTING -->
 
