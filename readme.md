@@ -41,7 +41,7 @@
   <p align="center">
     A Part of Kotlite Ridesharing Application
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the Projects »</strong></a>
+    <a href="https://github.com/dzaarsyd/B21-CAP0176"><strong>Explore the Projects »</strong></a>
     <br />
     <br />
     <!-- <a href="https://github.com/github_username/repo_name">View Demo</a>
