@@ -70,9 +70,11 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#deployment">Deployment</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#other-project">Other Project</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
@@ -207,17 +209,13 @@ Deployment REST API to Google Cloud Platform so that it can be accessed by andro
 2. Deployment using Google [Compute Engine with port 8000](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE%20with%20port%208000.md)
 3. Deployment using Google [App Engine Standard](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
 
-<b>Note:</b> You can't deploy using App Engine Standard if the number of files is more than ten thousand
+<b>Note:</b> You can't deploy using App Engine Standard if the number of files is more than 10K
 
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Feel free to clone, use, and contribute back via [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests). We'd love to see your pull requests and send them in! Please use the [issues tracker](https://github.com/SVeeIS/kotliteProjectAPI/issues) to raise bug reports and feature requests.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+We are excited to see the amazing features you build in your application using this project. Do ping us at our [contact](#contact) once you build one, feel free to contact us, and we would love to feature your app on our blog.
 
 <!-- LICENSE -->
 
@@ -229,19 +227,19 @@ Distributed under the MIT License. See `LICENSE.md` for more information.
 
 ## Contact
 
-How can we help you? While we're occupied for the Capstone Project, there are simpler ways for us to get in touch! Please do visit us at
+How can we help you? While we're occupied for the Capstone Project, there are simpler ways for us to get in touch! Please do visit us at [here](https://github.com/dzaarsyd/B21-CAP0176#team-members)
 
-<!-- Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+## Other Project
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name) -->
+You can also looking up our other repository in this project by this [**link**](https://github.com/dzaarsyd/B21-CAP0176).
 
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
-- [Bangkit Academy 2021]()
-- []()
-- []()
+<p align="center">
+  <img src="assets/bangkit.png" height="200"></img>&nbsp; &nbsp;<img src="assets/brillante_logos.png" height="200">
+</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
