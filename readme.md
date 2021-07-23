@@ -46,9 +46,9 @@
     <br />
     <!-- <a href="https://github.com/github_username/repo_name">View Demo</a>
     · -->
-    <a href="https://github.com/SVeeIS/kotliteProjectAPI/issues">Report Bug</a>
+    <a href="https://github.com/vionaaindah/kotliteProjectAPI/issues">Report Bug</a>
     ·
-    <a href="https://github.com/SVeeIS/kotliteProjectAPI/issues">Request Feature</a>
+    <a href="https://github.com/vionaaindah/kotliteProjectAPI/issues">Request Feature</a>
   </p>
 </p>
 
@@ -117,7 +117,7 @@ This project requires several resources to be prepared and installed on the loca
 
 1. Clone the repository
    ```sh
-   git clone https://github.com/SVeeIS/kotliteProjectAPI.git
+   git clone https://github.com/vionaaindah/kotliteProjectAPI.git
    cd kotliteProjectAPI
    ```
 2. Install the required environment with virtualenv **(recommendation)**
@@ -205,15 +205,15 @@ _For more usage, please refer to the [Documentation](http://kotlite.xyz/docs/)_.
 
 Deployment REST API to Google Cloud Platform so that it can be accessed by android apps. We deploy using compute engine, but we also have various options how to deployment
 
-1. Deployment using Google [Compute Engine](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE.md) (Main option)
-2. Deployment using Google [Compute Engine with port 8000](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GCE%20with%20port%208000.md)
-3. Deployment using Google [App Engine Standard](https://github.com/SVeeIS/kotliteProjectAPI/blob/master/GAE.md)
+1. Deployment using Google [Compute Engine](https://github.com/vionaaindah/kotliteProjectAPI/blob/master/GCE.md) (Main option)
+2. Deployment using Google [Compute Engine with port 8000](https://github.com/vionaaindah/kotliteProjectAPI/blob/master/GCE%20with%20port%208000.md)
+3. Deployment using Google [App Engine Standard](https://github.com/vionaaindah/kotliteProjectAPI/blob/master/GAE.md)
 
 <b>Note:</b> You can't deploy using App Engine Standard if the number of files is more than 10K
 
 ## Contributing
 
-Feel free to clone, use, and contribute back via [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests). We'd love to see your pull requests and send them in! Please use the [issues tracker](https://github.com/SVeeIS/kotliteProjectAPI/issues) to raise bug reports and feature requests.
+Feel free to clone, use, and contribute back via [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests). We'd love to see your pull requests and send them in! Please use the [issues tracker](https://github.com/vionaaindah/kotliteProjectAPI/issues) to raise bug reports and feature requests.
 
 We are excited to see the amazing features you build in your application using this project. Do ping us at our [contact](#contact) once you build one, feel free to contact us, and we would love to feature your app on our blog.
 
@@ -244,13 +244,13 @@ You can also looking up our other repository in this project by this [**link**](
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/SVeeIS/kotliteProjectAPI.svg?style=flat
-[contributors-url]: https://github.com/SVeeIS/kotliteProjectAPI/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/SVeeIS/kotliteProjectAPI.svg?style=flat
-[forks-url]: https://github.com/SVeeIS/kotliteProjectAPI/network/members
-[issues-shield]: https://img.shields.io/github/issues/SVeeIS/kotliteProjectAPI.svg?style=flat
-[issues-url]: https://github.com/SVeeIS/kotliteProjectAPI/issues
-[license-shield]: https://img.shields.io/github/license/SVeeIS/kotliteProjectAPI.svg?style=flat
-[license-url]: https://github.com/SVeeIS/kotliteProjectAPI/blob/master/LICENSE.md
+[contributors-shield]: https://img.shields.io/github/contributors/vionaaindah/kotliteProjectAPI.svg?style=flat
+[contributors-url]: https://github.com/vionaaindah/kotliteProjectAPI/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/vionaaindah/kotliteProjectAPI.svg?style=flat
+[forks-url]: https://github.com/vionaaindah/kotliteProjectAPI/network/members
+[issues-shield]: https://img.shields.io/github/issues/vionaaindah/kotliteProjectAPI.svg?style=flat
+[issues-url]: https://github.com/vionaaindah/kotliteProjectAPI/issues
+[license-shield]: https://img.shields.io/github/license/vionaaindah/kotliteProjectAPI.svg?style=flat
+[license-url]: https://github.com/vionaaindah/kotliteProjectAPI/blob/master/LICENSE.md
 
-<!-- https://github.com/SVeeIS/kotliteProjectAPI -->
+<!-- https://github.com/vionaaindah/kotliteProjectAPI -->
