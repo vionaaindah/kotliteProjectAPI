@@ -27,7 +27,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/SVeeIS/kotliteProjectAPI">
+  <a href="https://github.com/vionaaindah/kotliteProjectAPI">
     <img src="assets/kotlite_logo.png" alt="kotliteLogo" height="150">
   </a>
 
