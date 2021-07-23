@@ -36,7 +36,7 @@ gcloud auth application-default login
 **1. Cloning the repository to local computer**
 
 ```bash
-git clone https://github.com/SVeeIS/kotliteProjectAPI.git
+git clone https://github.com/vionaaindah/kotliteProjectAPI.git
 ```
 
 **2. Open directory**
