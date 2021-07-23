@@ -109,7 +109,7 @@ sudo pip3 install virtualenv
 **4. Clone project from repository github**
 
 ```bass
-git clone https://github.com/SVeeIS/kotliteProjectAPI.git
+git clone https://github.com/vionaaindah/kotliteProjectAPI.git
 ```
 
 **5. Go to directory project**
