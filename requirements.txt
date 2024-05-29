@@ -10,7 +10,7 @@ Django==3.2.25
 django-filter==2.4.0
 django-pandas==0.6.4
 djangorestframework==3.12.4
-djangorestframework-simplejwt==4.6.0
+djangorestframework-simplejwt==5.3.1
 flatbuffers==1.12
 gast==0.4.0
 geographiclib==1.50
