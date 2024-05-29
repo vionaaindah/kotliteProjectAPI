@@ -23,7 +23,7 @@ grpcio==1.53.2
 h5py==3.1.0
 idna==2.10
 itypes==1.2.0
-Jinja2==2.11.3
+Jinja2==3.1.4
 keras-nightly==2.5.0.dev2021032900
 Keras-Preprocessing==1.1.2
 Markdown==3.3.4
